@@ -488,3 +488,5 @@ htdocs/templates/index.html
 htdocs/templates/protostar/*
 htdocs/templates/system/*
 htdocs/tmp/*
+htdocs/installation1/*
+htdocs/templates/t3_bs3_blank/*
