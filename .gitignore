@@ -462,7 +462,6 @@ htdocs/plugins/search/content/*
 htdocs/plugins/search/index.html
 htdocs/plugins/search/newsfeeds/*
 htdocs/plugins/search/weblinks/*
-htdocs/plugins/system/*
 htdocs/plugins/system/cache/*
 htdocs/plugins/system/debug/*
 htdocs/plugins/system/index.html
@@ -490,3 +489,5 @@ htdocs/templates/system/*
 htdocs/tmp/*
 htdocs/installation1/*
 htdocs/templates/t3_bs3_blank/*
+htdocs/plugins/system/custom_quantity_tax/*
+htdocs/plugins/system/highlight/*
