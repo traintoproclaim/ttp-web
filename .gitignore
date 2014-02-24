@@ -492,3 +492,4 @@ htdocs/templates/t3_bs3_blank/*
 htdocs/plugins/system/custom_quantity_tax/*
 htdocs/plugins/system/highlight/*
 htdocs/t3-assets/dev/*
+node_modules/
