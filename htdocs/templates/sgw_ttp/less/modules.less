@@ -311,3 +311,101 @@ ul.latestusers {
   margin-left: 0;
 }
 
+// Footer Info Modules
+// -------------------
+
+.footer-links {
+  border-left: 1px solid @gray-dark; 
+
+  @media (min-width: @grid-float-breakpoint) { 
+    padding-left: (@t3-global-padding * 1.5);
+  }
+}
+
+.footer-info {
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul > li {
+    display: block;
+    padding: (@t3-global-padding/2) 0;
+    margin: (@t3-global-margin) 0;
+
+    &:first-child {
+      padding-top: 0;
+      margin-top: 0;
+    }
+  }
+
+  ul > li > a {
+    color: @link-color;
+    font-family: @font-family-serif;
+
+    &:hover, &:active {
+      color: @white;
+      text-decoration: none;
+    }
+  }
+
+  .list-shipping i {
+    background: #333;
+    color: #fff;
+    display: block;
+    float: left;
+    font-size: 115%;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 20px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 50px;
+  }
+
+ .list-shipping li {
+    cursor: pointer;
+    float: left;
+    margin: 0 0 40px 0;
+    padding: 0;
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .list-shipping li .title {
+    color: @link-color;
+    display: block;
+    line-height: 100%;
+    margin: 0 0 5px;
+  }
+
+  .list-shipping li:focus i,
+  .list-shipping li:hover i {
+    background: @black;
+  }
+
+  // Sample Content
+  ul.mostread {
+    li {
+      padding: 20px 0 20px 60px;
+      position: relative;
+      line-height: 1;
+    }
+
+    li:before {
+      background: @gray-dark;
+      width: 50px;
+      height: 50px;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+

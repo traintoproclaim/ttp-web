@@ -72,12 +72,12 @@
 
 // Typography
 // -------------------------
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-sans-serif:  'Roboto', sans-serif;
+@font-family-serif:       'Roboto Slab', Georgia, "Times New Roman", Times, serif;
 @font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          14px;
+@font-size-base:          12px;
 @font-size-large:         ceil(@font-size-base * 1.25); // ~18px
 @font-size-small:         ceil(@font-size-base * 0.85); // ~12px
 
@@ -88,7 +88,7 @@
 @font-size-h5:            @font-size-base;
 @font-size-h6:            ceil(@font-size-base * 0.85); // ~12px
 
-@line-height-base:        1.428571429; // 20/14
+@line-height-base:        1.666666667; // 20/12
 @line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
 
 @headings-font-family:    @font-family-base;
@@ -599,7 +599,7 @@
 
 // Breadcrumbs
 // -------------------------
-@breadcrumb-bg:               #f5f5f5;
+@breadcrumb-bg:               @black;
 @breadcrumb-color:            #ccc;
 @breadcrumb-active-color:     @gray-light;
 @breadcrumb-separator:        "/";
@@ -732,18 +732,14 @@
 @t3-spotlight-background:              @body-bg;
 @t3-spotlight-text-color:              @text-color;
 
-
-// Footer Styles
+// Footer Modules Styles
 // -------------------------
-@t3-footer-background:              @navbar-default-bg;
+@t3-footer-background:              @gray-darker;
 @t3-footer-text-color:              @gray;
 
 @t3-footer-module-background:       @t3-footer-background;
-@t3-footer-module-text-color:       @t3-footer-text-color;
-
-@t3-footer-module-title-color:      @text-color;
-
-
+@t3-footer-module-text-color:       @gray-light;
+@t3-footer-module-title-color:      @white;
 
 // 
 // T3 ADD-ONS

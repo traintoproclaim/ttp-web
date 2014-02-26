@@ -64,6 +64,8 @@
 		<position>sidebar-2</position>
 		<position>mast-col</position>
 		<position>footer</position>
+		<position>footer-subcribe</position>
+		<position>footer-info</position>
 		<position>home-0</position>
 		<position>home-1</position>
 		<position>home-2</position>

@@ -201,9 +201,9 @@
 // FOOTER
 // ---------------------------------------------------------
 .t3-footer {
-  border-top: 1px solid @t3-border-color;
   background: @t3-footer-background;
   color: @t3-footer-text-color;
+  padding-top: (@t3-global-padding * 1.5);
   .clearfix();
 
   // small
@@ -212,11 +212,21 @@
     font-size: 100%; //Use global footer font size.
   }
 
-  // links
+ // links
   a {
+    color: @t3-footer-module-text-color;
     // Link States
     &:hover, &:active, &:focus {
+      color: lighten(@gray,50%);
     }
+  }
+
+  // Module titles
+  .module-title {
+    color: @t3-footer-module-title-color;
+    font-size: @font-size-large;
+    padding: 0;
+    border: 0;
   }
 
 }
@@ -271,7 +281,7 @@
 // Copyright
 // ---------
 .t3-copyright {
-  border-top: 1px solid @t3-border-color;
+  border-top: 1px solid lighten(@gray-darker,5%);
   font-size: @font-size-small;
   padding: (@t3-global-padding * 2) 0 (@t3-global-padding * 4);
   .clearfix();
