@@ -85,14 +85,16 @@
   .dropdown-menu .active .mega-nav .mega-group > .dropdown-header {
     margin: 0;
     padding: 0;
-    background: @t3-module-title-bg;
-    color: @t3-module-title-color;
+    background: none;
+    color: @dropdown-header-color;
     font-size: @font-size-large;
     line-height: normal;
+    text-transform: uppercase;
+    font-weight: bold;
     // Link states
     &:hover, &:active, &:focus {
       background: inherit;
-      color: inherit;
+      color: @dropdown-header-color;
     }
   }
 
@@ -130,10 +132,22 @@
   // The Nav
   .mega-nav,
   .dropdown-menu .mega-nav {
+  	list-style: none;
   }
 
   .mega-nav > li,
   .dropdown-menu .mega-nav > li {
+    color: @white;
+    font-weight: normal;
+    font-family: @font-family-serif;
+    text-shadow: none;
+    
+    &:hover,
+    &:focus {
+      background: none;
+      color: @brand-primary;
+    }
+    
   }
 
   .mega-nav > li a,
@@ -186,6 +200,28 @@
 
   // Module Content
   .t3-module .module-ct {
+      a {
+      color: @white;
+
+      &:hover, &:focus {
+        color: @brand-primary;
+        text-decoration: none;
+      }
+    }
+
+    .image img {
+        padding: 0;
+        border: 0;
+        max-width: 100px;
+        height: auto;
+    }
+
+    .banneritem {
+      img {
+        width: 100%;
+      }
+    }
+  
   }
 
   // List in Module
@@ -196,8 +232,8 @@
 
   .t3-module ul li,
   .t3-module .nav li {
-    list-style: disc;
-    display: list-item;
+    list-style: none;
+    display: block;
     float: none;
     margin: 0;
     padding: 0;
@@ -206,7 +242,7 @@
 
   .t3-module ul li a,
   .t3-module .nav li a {
-    display: inline;
+    display: block;
     padding: 0;
     margin: 0;
     border: 0;
@@ -217,8 +253,9 @@
     // Link states
     &:hover, &:focus, &:active {
       background: none;
-      color: inherit;
+      color: @brand-primary;
       font: inherit;
+      text-decoration: none;
     }
   }
   
@@ -227,11 +264,16 @@
   }
 
   .dropdown-menu .t3-module .nav li {
+    list-style: none;
   }
 
   .dropdown-menu .t3-module .t3-module li a {
+    color: @white;
+    font-weight: normal;
+  
     // Link states
     &:hover, &:focus, &:active {
+      color: @brand-primary;
     }
   }
   
@@ -273,4 +315,20 @@
   }
 
   // End
+}
+
+// Border col
+// ----------
+
+.mega-dropdown-inner .row {
+  .mega-col-nav + .mega-col-module {
+    border-left: 1px solid lighten(@gray-dark, 10%);
+    border-right: 1px solid lighten(@gray-dark, 10%);
+    min-height: 320px;
+  }
+}
+
+
+.t3-megamenu .t3-module .module-ct .box_oc .box-product div .cart {
+  display: none;
 }
