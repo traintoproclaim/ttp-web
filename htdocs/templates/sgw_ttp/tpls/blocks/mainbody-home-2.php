@@ -18,6 +18,8 @@ defined('_JEXEC') or die;
 		<!-- //HOME SL 1 -->
 	<?php endif ?>
 
+	<?php $this->loadBlock('spotlight-1') ?>
+	
 	<?php $this->loadBlock('mainbody') ?>
 
 	<?php if ($this->countModules('home-5')) : ?>

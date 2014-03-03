@@ -35,6 +35,8 @@ defined('_JEXEC') or die;
 
 	<?php $this->loadBlock('mainbody-home-1') ?>
 
+	<?php $this->loadBlock('navhelper') ?>
+  
 	<?php $this->loadBlock('footer') ?>
 
 </div>
