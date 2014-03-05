@@ -32,7 +32,7 @@
   padding: 0;
   background: transparent;
   color: inherit;
-  font-size: 18px;
+  font-size: 15px;
   line-height: normal;
 }
 .t3-megamenu .dropdown-header:hover,
@@ -107,7 +107,7 @@
   padding: 0;
   background: transparent;
   color: inherit;
-  font-size: 18px;
+  font-size: 15px;
   line-height: normal;
   margin-bottom: 5px;
 }
@@ -333,10 +333,12 @@
 .t3-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header {
   margin: 0;
   padding: 0;
-  background: transparent;
-  color: inherit;
-  font-size: 18px;
+  background: none;
+  color: #eeeeee;
+  font-size: 15px;
   line-height: normal;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 .t3-megamenu .dropdown-header:hover,
 .t3-megamenu .mega-nav .mega-group > .dropdown-header:hover,
@@ -351,11 +353,29 @@
 .t3-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header:focus,
 .t3-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header:focus {
   background: inherit;
-  color: inherit;
+  color: #eeeeee;
 }
 .t3-megamenu .mega-group-ct .row {
   margin-left: -15px;
   margin-right: -15px;
+}
+.t3-megamenu .mega-nav,
+.t3-megamenu .dropdown-menu .mega-nav {
+  list-style: none;
+}
+.t3-megamenu .mega-nav > li,
+.t3-megamenu .dropdown-menu .mega-nav > li {
+  color: #ffffff;
+  font-weight: normal;
+  font-family: 'Roboto Slab', Georgia, "Times New Roman", Times, serif;
+  text-shadow: none;
+}
+.t3-megamenu .mega-nav > li:hover,
+.t3-megamenu .dropdown-menu .mega-nav > li:hover,
+.t3-megamenu .mega-nav > li:focus,
+.t3-megamenu .dropdown-menu .mega-nav > li:focus {
+  background: none;
+  color: #0077bb;
 }
 .t3-megamenu .dropdown-menu .mega-group .mega-nav > li.active a {
   color: #2d2d2d;
@@ -366,22 +386,41 @@
 .t3-megamenu .t3-module .module-title {
   margin: 0;
   padding: 0;
-  background: transparent;
-  color: inherit;
-  font-size: 18px;
+  background: none;
+  color: #eeeeee;
+  font-size: 15px;
   line-height: normal;
+  text-transform: uppercase;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 .t3-megamenu .t3-module .module-title:hover,
 .t3-megamenu .t3-module .module-title:active,
 .t3-megamenu .t3-module .module-title:focus {
   background: inherit;
-  color: inherit;
+  color: #eeeeee;
+}
+.t3-megamenu .t3-module .module-ct a {
+  color: #ffffff;
+}
+.t3-megamenu .t3-module .module-ct a:hover,
+.t3-megamenu .t3-module .module-ct a:focus {
+  color: #0077bb;
+  text-decoration: none;
+}
+.t3-megamenu .t3-module .module-ct .image img {
+  padding: 0;
+  border: 0;
+  max-width: 100px;
+  height: auto;
+}
+.t3-megamenu .t3-module .module-ct .banneritem img {
+  width: 100%;
 }
 .t3-megamenu .t3-module ul li,
 .t3-megamenu .t3-module .nav li {
-  list-style: disc;
-  display: list-item;
+  list-style: none;
+  display: block;
   float: none;
   margin: 0;
   padding: 0;
@@ -389,7 +428,7 @@
 }
 .t3-megamenu .t3-module ul li a,
 .t3-megamenu .t3-module .nav li a {
-  display: inline;
+  display: block;
   padding: 0;
   margin: 0;
   border: 0;
@@ -405,12 +444,25 @@
 .t3-megamenu .t3-module ul li a:active,
 .t3-megamenu .t3-module .nav li a:active {
   background: none;
-  color: inherit;
+  color: #0077bb;
   font: inherit;
+  text-decoration: none;
+}
+.t3-megamenu .dropdown-menu .t3-module .nav li {
+  list-style: none;
+}
+.t3-megamenu .dropdown-menu .t3-module .t3-module li a {
+  color: #ffffff;
+  font-weight: normal;
+}
+.t3-megamenu .dropdown-menu .t3-module .t3-module li a:hover,
+.t3-megamenu .dropdown-menu .t3-module .t3-module li a:focus,
+.t3-megamenu .dropdown-menu .t3-module .t3-module li a:active {
+  color: #0077bb;
 }
 .t3-megamenu .mega-caption {
   color: #5a5a5a;
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 3px;
   font-weight: normal;
 }
@@ -418,4 +470,12 @@
 .t3-megamenu .nav .input-group-addon [class*=" icon-"],
 .t3-megamenu .nav .input-group-addon .fa {
   margin-right: 0;
+}
+.mega-dropdown-inner .row .mega-col-nav + .mega-col-module {
+  border-left: 1px solid #474747;
+  border-right: 1px solid #474747;
+  min-height: 320px;
+}
+.t3-megamenu .t3-module .module-ct .box_oc .box-product div .cart {
+  display: none;
 }
