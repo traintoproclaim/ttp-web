@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 	<?php if ($this->countModules('home-1')) : ?>
 		<!-- HOME SL 1 -->
-		<div class="wrap t3-sl t3-sl-1 <?php $this->_c('home-1') ?>">
+		<div class="container t3-sl t3-sl-1 <?php $this->_c('home-1') ?>">
 			<jdoc:include type="modules" name="<?php $this->_p('home-1') ?>" style="raw" />
 		</div>
 		<!-- //HOME SL 1 -->
@@ -22,7 +22,7 @@ defined('_JEXEC') or die;
 	
 	<?php if ($this->countModules('home-5')) : ?>
 		<!-- HOME SL 5 -->
-		<div class="wrap t3-sl t3-sl-5 <?php $this->_c('home-5') ?>">
+		<div class="container t3-sl t3-sl-5 <?php $this->_c('home-5') ?>">
 			<jdoc:include type="modules" name="<?php $this->_p('home-5') ?>" style="raw" />
 		</div>
 		<!-- //HOME SL 5 -->
