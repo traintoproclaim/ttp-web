@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 		<div style="clear:right"></div>
 	</div>
 </div>
-<form action="<?php echo hikashop_completeLink('order&task=save&subtask=product&tmpl=component'); ?>" name="hikashop_order_product_form" id="hikashop_order_product_form" method="post" enctype="multipart/form-data">
+<form action="<?php echo hikashop_completeLink('order&task=save&subtask=products&tmpl=component'); ?>" name="hikashop_order_product_form" id="hikashop_order_product_form" method="post" enctype="multipart/form-data">
 	<dl class="hika_options">
 		<dt class="hikashop_order_product_id"><label><?php echo JText::_('PRODUCT'); ?></label></dt>
 		<dd class="hikashop_order_product_id"><?php echo (int)@$this->orderProduct->product_id; ?> - <?php echo @$this->originalProduct->product_name; ?></dd>
@@ -38,7 +38,7 @@ defined('_JEXEC') or die('Restricted access');
 		<dt class="hikashop_order_product_vat"><label><?php echo JText::_('VAT'); ?></label></dt>
 		<dd class="hikashop_order_product_vat">
 			<input type="text" name="data[order][product][order_product_tax]" value="<?php echo @$this->orderProduct->order_product_tax; ?>" />
-			<?php echo $this->ratesType->display( "data[order][product][tax_namekey]" , @$this->orderProduct->tax_namekey ); ?>
+			<?php echo $this->ratesType->display( "data[order][product][tax_namekey]" , @$this->orderProduct->order_product_tax_info[0]->tax_namekey ); ?>
 		</dd>
 
 		<dt class="hikashop_order_product_quantity"><label><?php echo JText::_('PRODUCT_QUANTITY'); ?></label></dt>

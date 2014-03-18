@@ -100,7 +100,11 @@ if(!empty($this->variant_name)) {
 							}
 							$attr = 'onmouseover="return window.localPage.changeImage(this, \'hikashop_main_image'.$variant_name.'\', \''.$img->url.'\', '.$img->width.', '.$img->height.', \''.@$image->file_description.'\', \''.@$image->file_name.'\');"';
 							$html = '<img class="hikashop_child_image" title="'.$this->escape(@$image->file_description).'" alt="'.$this->escape(@$image->file_name).'" src="'.$img->url.'"/>';
-							echo $this->popup->image($html, $img->origin_url, $id, $attr, array('gallery' => 'hikashop_main_image_VARIANT_NAME'));
+							if(empty($variant_name)) {
+								echo $this->popup->image($html, $img->origin_url, $id, $attr, array('gallery' => 'hikashop_main_image'));
+							} else {
+								echo $this->popup->image($html, $img->origin_url, $id, $attr, array('gallery' => 'hikashop_main_image_VARIANT_NAME'));
+							}
 						}
 					}
 				}

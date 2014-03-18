@@ -100,12 +100,16 @@ if($this->config->get('affiliate_registration',0)){ ?>
 ?>
 		</div>
 	</div>
-<?php }?>
+<?php }
+	if($this->config->get('address_on_registration',1)){
+?>
 
 	<div class=""><legend><?php echo JText::_( 'ADDRESS_INFORMATION' ); ?></legend></div>
 <?php
 	$this->type = 'address';
 	echo $this->loadTemplate();
+
+	}
 ?>
 
 	<div class="control-group hikashop_registration_required_info_line">

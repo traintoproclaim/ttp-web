@@ -285,8 +285,7 @@ tr.hikashop_checkout_payment_ccinfo td {
 	padding-top:30px;
 }
 
-
-.button, .btn, a.hikashop_cart_button, a.hikashop_compare_button, .hikashop_cart_input_button{
+a.hikashop_cart_button, a.hikashop_compare_button, .hikashop_cart_input_button{
 	text-decoration:none;
 	color: #777777 !important;
 	cursor: pointer;
@@ -300,28 +299,28 @@ tr.hikashop_checkout_payment_ccinfo td {
 	border:1px solid;
 	border-color: #EEEEEE #DDDDDD #DDDDDD #EEEEEE;
 	border-radius:3px;
-background-color: #eee;
-background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#eee));
-background: -webkit-linear-gradient(top, #ffffff, #eee);
-background: -moz-linear-gradient(top, #ffffff, #eee);
-background: -o-linear-gradient(top, #ffffff, #eee);
-background: linear-gradient(top, #ffffff, #eee);
+	background-color: #eee;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#eee));
+	background: -webkit-linear-gradient(top, #ffffff, #eee);
+	background: -moz-linear-gradient(top, #ffffff, #eee);
+	background: -o-linear-gradient(top, #ffffff, #eee);
+	background: linear-gradient(top, #ffffff, #eee);
 }
 
-.button:hover, .btn:hover, a.hikashop_cart_button:hover, a.hikashop_compare_button:hover, .hikashop_cart_input_button:hover{
+a.hikashop_cart_button:hover, a.hikashop_compare_button:hover, .hikashop_cart_input_button:hover{
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
 	display: inline-block;
 	outline: none;
 	border:1px solid;
 	border-color: #EEEEEE #DDDDDD #DDDDDD #EEEEEE;
 	text-decoration:none;
-background-color: #f8f8f8;
-background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f8f8f8));
-background: -webkit-linear-gradient(top, #ffffff, #f8f8f8);
-background: -moz-linear-gradient(top, #ffffff, #f8f8f8);
-background: -o-linear-gradient(top, #ffffff, #f8f8f8);
-background: linear-gradient(top, #ffffff, #f8f8f8);
-	}
+	background-color: #f8f8f8;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f8f8f8));
+	background: -webkit-linear-gradient(top, #ffffff, #f8f8f8);
+	background: -moz-linear-gradient(top, #ffffff, #f8f8f8);
+	background: -o-linear-gradient(top, #ffffff, #f8f8f8);
+	background: linear-gradient(top, #ffffff, #f8f8f8);
+}
 
 .hikashop_subcontainer br {display:none}
 
@@ -331,7 +330,6 @@ background: linear-gradient(top, #ffffff, #f8f8f8);
 a.hikashop_compare_button, a.hikashop_compare_button:hover{
 	float:none;
 }
-
 
 .hikashop_products a.hikashop_cart_button,.hikashop_products a.hikashop_cart_button:hover, #hikashop_checkout_coupon a.hikashop_cart_button,#hikashop_checkout_coupon a.hikashop_cart_button:hover{
 	float:none;
@@ -479,6 +477,111 @@ a.hikashop_compare_button, a.hikashop_compare_button:hover{
 }
 .hikashop_rbottom{clear:both;}
 .clear_both{clear:both;}
+
+
+div.hikashop_main_image_div,
+div.hikashop_main_file_div {
+	position:relative;
+}
+div.hikashop_uploader_image_add,
+div.hikashop_uploader_file_add {
+	position:absolute;
+	top:5px;
+	right:5px;
+}
+div.hikashop_uploader_image_add span,
+div.hikashop_uploader_file_add span {
+	display:inline-block;
+	width:32px;
+	height:32px;
+}
+div.hikashop_uploader_image_add span.hika_add_btn {
+
+	background-image:url(../images/gallery.png);
+}
+div.hikashop_uploader_image_add span.hika_upload_btn,
+div.hikashop_uploader_file_add span.hika_upload_btn {
+
+	background-image:url(../images/upload2.png);
+}
+
+ul.hikashop_uploader_images .ui-sortable-placeholder {
+	border:1px dotted black;
+	visibility:visible !important;
+	width:50px;
+	height:50px !important;
+}
+
+ul.hikashop_uploader_images .ui-sortable-placeholder * {
+	visibility:hidden;
+}
+ul.hikashop_uploader_images {
+	list-style-type:none;
+	margin:0 !important;
+	padding:15px 0 0 0 !important;
+}
+div.hikashop_uploader_singleimage_content,
+div.hikashop_uploader_singlefile_content {
+	padding:15px 0 5px 8px !important;
+	width:100px;
+}
+ul.hikashop_uploader_multiimage_content > li,
+div.hikashop_uploader_singleimage_content > div,
+div.hikashop_uploader_singlefile_content > div {
+	position:relative;
+}
+
+ul.hikashop_uploader_multiimage_content .deleteImg,
+div.hikashop_uploader_singleimage_content .deleteImg,
+div.hikashop_uploader_singlefile_content .deleteImg {
+	position:absolute;
+	right:0px;
+	top:0px;
+	display:none;
+}
+
+ul.hikashop_uploader_multiimage_content:hover .deleteImg,
+div.hikashop_uploader_singleimage_content:hover .deleteImg,
+div.hikashop_uploader_singlefile_content:hover .deleteImg {
+	display:block;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+}
+
+ul.hikashop_uploader_multiimage_content .deleteImg:hover,
+div.hikashop_uploader_singleimage_content .deleteImg:hover,
+div.hikashop_uploader_singlefile_content .deleteImg:hover {
+	opacity:1;
+	filter:alpha(opacity=100);
+}
+
+.hkIcon {
+	width:16px;
+	height:16px;
+	display:inline-block;
+	line-height:16px;
+}
+.hkIcon-delete {
+	background-image:url(../images/cancel.png);
+}
+
+.dropOver {
+	background-color:#909090;
+}
+
+.hikashop_dropzone {
+	border: 2px dashed #CCCCCC;
+	width:100%;
+	-webkit-border-radius:12px; -moz-border-radius:12px; border-radius:12px;
+	min-height:100px;
+}
+
+.hikashop_uploader_image_empty,
+.hikashop_uploader_file_empty {
+	width:100%;
+	padding:30px 0px;
+	text-align:center;
+}
 
 
 
@@ -864,14 +967,13 @@ span.hikashop_AUP_points{
 	float:left;
 }
 
-
 .hikashop_img_pane_panel{
 	position: absolute;
 	bottom:0px;
-	background: rgba(0,0,0,0.8);
-	background-color:black;
+	background:none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
 	filter:alpha(opacity=80);
 	text-align:center !important;
+	color:#fff;
 }
 
 .hikashop_slide_numbers{
@@ -1016,13 +1118,13 @@ a.hikashop_filter_list_selected:hover {
 .ui-slider-vertical .ui-slider-range-max { top: 0; }
 
 
-.ui-tabs { position: relative; padding: .2em; zoom: 1; } 
+.ui-tabs { position: relative; padding: .2em; zoom: 1; }
 .ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; }
 .ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; margin: 0 .2em 1px 0; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
 .ui-tabs .ui-tabs-nav li a { float: left; padding: .5em 1em; text-decoration: none; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 1px; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } 
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; }
 .ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
 .ui-tabs .ui-tabs-hide { display: none !important; }
 
@@ -1337,8 +1439,8 @@ a.hikashop_filter_list_selected:hover {
 }
 
 .hika_comment_listing_useful.locked{
-	opacity: 0.5;
-	cursor: default;
+	opacity: 0.2;
+	cursor: default !important;
 }
 
 .hika_comment_listing_useful.locked:hover, .hika_comment_listing_useless.locked:hover{
@@ -2240,7 +2342,7 @@ p.jRatingInfos span.maxRate {
 #htmlfieldset_products .hikashop_order_product_name:hover{color:#2C8296;}
 #htmlfieldset_products a{text-decoration:none; color:#555}
 #htmlfieldset_products a:hover{text-decoration:none; color:#2C8296}
-#htmlfieldset_products .row0:hover, #htmlfieldset_products .row1:hover{background-color:#f8f8f8} 
+#htmlfieldset_products .row0:hover, #htmlfieldset_products .row1:hover{background-color:#f8f8f8}
 #htmlfieldset_products .hikashop_order_item_total_value, #htmlfieldset_products .hikashop_order_subtotal_value, #htmlfieldset_products .hikashop_order_shipping_value{color:#2C8296; font-style:italic;}
 #htmlfieldset_products .hikashop_order_total_title{font-weight:bold; color:#555}
 #htmlfieldset_products .hikashop_order_total_value{font-weight:bold; color:#2C8296; font-style:italic;}
@@ -2413,3 +2515,5 @@ background: linear-gradient(top, #ffffff, #f8f8f8);}
 
 #hikashop_checkout_address_shipping_selector, #hikashop_checkout_address_billing_selector{color:#2C8296; font-weight:bold; font-size:11px; border:1px solid #ddd}
 #hikashop_checkout_address_shipping_selector option, #hikashop_checkout_address_billing_selector option{color:#666; font-weight:normal; font-size:12px;}
+
+@media print { .hikashop_no_print:after { content: "" !important; } }

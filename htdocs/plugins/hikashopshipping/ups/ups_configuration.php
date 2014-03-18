@@ -115,7 +115,7 @@ defined('_JEXEC') or die('Restricted access');
 					JHTML::_('select.option', 'res', JText::_('Residential Address') ),
 					JHTML::_('select.option', 'com', JText::_('Commercial Address') ),
 				);
-				echo JHTML::_('hikaselect.genericlist', $arr, "data[shipping][shipping_params][destination_type]", 'class="inputbox" size="1"', 'value', 'text', @$this->element->shipping_params->pickup_type);
+				echo JHTML::_('hikaselect.genericlist', $arr, "data[shipping][shipping_params][destination_type]", 'class="inputbox" size="1"', 'value', 'text', @$this->element->shipping_params->destination_type);
 			?>
 	</tr>
 	<td>

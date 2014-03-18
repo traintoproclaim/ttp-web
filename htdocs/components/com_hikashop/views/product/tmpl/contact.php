@@ -21,26 +21,37 @@ if(!empty($this->product->images)) {
 	echo $this->product->product_name; ?></h1>
 		</div>
 		<div class="toolbar" id="toolbar" style="float: right;">
-			<button class="btn" type="button" onclick="window.hikashop.submitform('send_email', 'hikashop_contact_form');"><img src="<?php echo HIKASHOP_IMAGES; ?>ok.png" alt=""/><?php echo JText::_('OK'); ?></button>
+			<button class="btn" type="button" onclick="checkFields('hikashop_contact_form');"><img src="<?php echo HIKASHOP_IMAGES; ?>ok.png" alt=""/><?php echo JText::_('OK'); ?></button>
 <?php if(JRequest::getCmd('tmpl', '') != 'component') { ?>
 			<button class="btn" type="button" onclick="history.back();"><img src="<?php echo HIKASHOP_IMAGES; ?>cancel.png" alt=""/><?php echo JText::_('HIKA_CANCEL'); ?></button>
 <?php } ?>
 		</div>
 		<div style="clear:both"></div>
 	</fieldset>
+<?php
+	$formData = JRequest::getVar('formData','');
+	if(isset($this->element->name) && !isset($formData->name)){
+		$formData->name = $this->element->name;
+	}
+	if(isset($this->element->email) && !isset($formData->email)){
+		$formData->email = $this->element->email;
+	}
+?>
 	<form action="<?php echo hikashop_completeLink('product'); ?>" id="hikashop_contact_form" name="hikashop_contact_form" method="post">
 		<dl>
 			<dt><label for="data[contact][name]"><?php echo JText::_( 'HIKA_USER_NAME' ); ?></label></dt>
 			<dd>
-				<input type="text" name="data[contact][name]" size="40" value="<?php echo $this->escape(@$this->element->name);?>" />
+				<input type="text" name="data[contact][name]" size="40" value="<?php echo $this->escape(@$formData->name);?>" />
 			</dd>
 			<dt><label for="data[contact][email]"><?php echo JText::_( 'HIKA_EMAIL' ); ?></label></dt>
 			<dd>
-				<input type="text" name="data[contact][email]" size="40" value="<?php echo $this->escape(@$this->element->email);?>" />
+				<input type="text" name="data[contact][email]" size="40" value="<?php echo $this->escape(@$formData->email);?>" />
 			</dd>
 			<dt><label for="data[contact][altbody]"><?php echo JText::_( 'ADDITIONAL_INFORMATION' ); ?></label></dt>
 			<dd>
-				<textarea cols="60" rows="10" name="data[contact][altbody]" style="width:100%;"></textarea>
+<textarea cols="60" rows="10" name="data[contact][altbody]" style="width:100%;">
+<?php if(isset($formData->altbody)) echo $formData->altbody; ?>
+</textarea>
 			</dd>
 		</dl>
 		<input type="hidden" name="data[contact][product_id]" value="<?php echo JRequest::getInt('cid');?>" />

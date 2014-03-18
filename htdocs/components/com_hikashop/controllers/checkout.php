@@ -822,12 +822,19 @@ class checkoutController extends hikashopController {
 						$rates = array();
 						foreach($shipping_groups as $key => $shipping_group) {
 							$p = reset($shipping_group->shippings);
+							if(is_int($key))
+								$key = ''.$key;
+							$keys = array(); $shipping_group_struct = array();
+							if(preg_match_all('#([a-zA-Z])*([0-9]+)#iu', $key, $keys)) {
+								$shipping_group_struct = array_combine($keys[1], $keys[2]);
+							}
 							foreach($methods as $rate) {
-								if($rate->shipping_id == $p && (!isset($rate->shipping_warehouse_id) || $rate->shipping_warehouse_id === $key)) {
+								if(is_int($rate->shipping_warehouse_id))
+									$rate->shipping_warehouse_id = ''.$rate->shipping_warehouse_id;
+								if($rate->shipping_id == $p && (!isset($rate->shipping_warehouse_id) || $rate->shipping_warehouse_id === $key || $rate->shipping_warehouse_id === $shipping_group_struct)) {
 									$rates[] = $rate;
 									$shipping_ids[] = $rate->shipping_id.'@'.$key;
 									$shipping_methods[] = $rate->shipping_type.'@'.$key;
-
 									break;
 								}
 							}
@@ -1475,8 +1482,16 @@ class checkoutController extends hikashopController {
 			$order->order_shipping_params->prices = array();
 			foreach($cart->shipping as $cart_shipping) {
 				$price_key = $cart_shipping->shipping_id;
-				if(isset($cart_shipping->shipping_warehouse_id))
-					$price_key .= '@' . $cart_shipping->shipping_warehouse_id;
+				if(isset($cart_shipping->shipping_warehouse_id)) {
+					if(is_string($cart_shipping->shipping_warehouse_id) || is_int($cart_shipping->shipping_warehouse_id)) {
+						$price_key .= '@' . $cart_shipping->shipping_warehouse_id;
+					} else {
+						$price_key .= '@';
+						foreach($cart_shipping->shipping_warehouse_id as $k => $v) {
+							$price_key .= $k . $v;
+						}
+					}
+				}
 
 				$order->order_shipping_params->prices[$price_key] = new stdClass();
 				$order->order_shipping_params->prices[$price_key]->price_with_tax = $cart_shipping->shipping_price_with_tax;

@@ -543,7 +543,7 @@ class PluginsViewPlugins extends hikashopView{
 			$parts = explode('.',$image);
 			$row = new stdClass();
 			$row->ext = array_pop($parts);
-			if(!in_array(strtolower($row->ext),array('gif','png','jpg','jpeg'))) continue;
+			if(!in_array(strtolower($row->ext),array('gif','png','jpg','jpeg','svg'))) continue;
 			$row->id = implode($parts);
 			$row->name = str_replace('_',' ',$row->id);
 			$row->file = $image;

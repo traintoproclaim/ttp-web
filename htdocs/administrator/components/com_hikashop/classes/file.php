@@ -492,15 +492,17 @@ class hikashopFileClass extends hikashopClass {
 		header("Pragma: public");
 		header("Content-Transfer-Encoding: binary");
 
+
 		$fp = fopen($filename, 'rb');
 		fseek($fp, $seek_start);
 		if(!ini_get('safe_mode')){
 			set_time_limit(0);
 		}
+
 		while(!feof($fp)) {
 			print(fread($fp, 8192));
-			flush();
 			ob_flush();
+			flush();
 		}
 
 		fclose($fp);
@@ -548,6 +550,32 @@ class hikashopFileClass extends hikashopClass {
 					}
 					break;
 				default:
+					if(substr($field_table, 0, 4) == 'plg.') {
+						$externalValues = array();
+						JPluginHelper::importPlugin('hikashop');
+						$dispatcher = JDispatcher::getInstance();
+						$dispatcher->trigger('onTableFieldsLoad', array( &$externalValues ) );
+						$found = false;
+						foreach($externalValues as $external) {
+							if($external->value == $field_table) {
+								$found = true;
+								break;
+							}
+						}
+						if($found) {
+							$elemsData = $app->getUserState(HIKASHOP_COMPONENT.'.plg_fields.' . substr($field_table, 4));
+							if(!empty($elemsData)){
+								foreach($elemsData as $elemData) {
+									if(@$elemData->$field_namekey == $name) {
+										$found = true;
+									}
+								}
+							}
+							if(!$found) {
+								$dispatcher->trigger('onFieldFileDownload', array( &$found, $name, $field_table, $field_namekey, $options ) );
+							}
+						}
+					}
 					break;
 			}
 			if(!$found){

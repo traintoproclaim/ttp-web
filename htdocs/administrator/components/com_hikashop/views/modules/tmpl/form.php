@@ -20,7 +20,6 @@ if (!$noForm) {
 ?>
 <form action="index.php" method="post"  name="adminForm" id="adminForm">
 <?php }
-$cid = $this->element->hikashop_params['cid'];
 if(!HIKASHOP_BACK_RESPONSIVE) { ?>
 <div id="page-modules">
 	<table style="width:100%">
@@ -137,20 +136,20 @@ if(!HIKASHOP_BACK_RESPONSIVE) { ?>
 								<?php echo JText::_('ASSOCIATED_CATEGORY');?>
 							</td>
 							<td>
-								<span id="changeParent">
+								<span id="<?php echo str_replace(array('[',']'),'_',$this->control); ?>changeParent">
 									<?php echo @$this->element->category->category_id.' '.htmlspecialchars(@$this->element->category->category_name, ENT_COMPAT, 'UTF-8');?>
 								</span>
-								<input class="inputbox" id="paramsselectparentlisting" name="<?php echo $this->control;?>[selectparentlisting]" type="hidden" size="20" value="<?php echo @$this->element->hikashop_params['selectparentlisting'];?>">
+								<input class="inputbox" id="<?php echo str_replace(array('[',']'),'_',$this->control); ?>paramsselectparentlisting" name="<?php echo $this->control;?>[selectparentlisting]" type="hidden" size="20" value="<?php echo @$this->element->hikashop_params['selectparentlisting'];?>">
 								<?php
 								echo $this->popup->display(
 										JText::_('SELECT'),
 										'SELECT_A_CATEGORY',
-										'\''.hikashop_completeLink('category&task=selectparentlisting&filter_id=product&control=params',true).'&values=\'+document.getElementById(\'paramsselectparentlisting\').value',
+										'\''.hikashop_completeLink('category&task=selectparentlisting&control='.str_replace(array('[',']'),'_',$this->control).'params&id='.str_replace(array('[',']'),'_',$this->control).'changeParent&filter_id=product',true).'&values=\'+document.getElementById(\''.str_replace(array('[',']'),'_',$this->control).'paramsselectparentlisting\').value',
 										'linkparamsselectparentlisting',
 										860, 480, '', '', 'button',true
 									);
 								?>
-								<a href="#" onclick="document.getElementById('changeParent').innerHTML='';document.getElementById('paramsselectparentlisting').value=0;return false;">
+								<a href="#" onclick="document.getElementById('<?php echo str_replace(array('[',']'),'_',$this->control); ?>changeParent').innerHTML='';document.getElementById('<?php echo str_replace(array('[',']'),'_',$this->control); ?>paramsselectparentlisting').value=0;return false;">
 									<img src="<?php echo HIKASHOP_IMAGES?>delete.png"/>
 								</a>
 							</td>
@@ -209,7 +208,22 @@ if(!HIKASHOP_BACK_RESPONSIVE) { ?>
 								<?php echo JHTML::_('hikaselect.booleanlist', $this->control.'[show_cart_delete]','',@$this->element->hikashop_params['show_cart_delete']);?>
 							</td>
 						</tr>
-
+						<tr>
+							<td class="key">
+								<?php echo JText::_('SHOW_CART_COUPON'); ?>
+							</td>
+							<td>
+								<?php echo JHTML::_('hikaselect.booleanlist', $this->control.'[show_coupon]','',@$this->element->hikashop_params['show_coupon']);?>
+							</td>
+						</tr>
+						<tr>
+							<td class="key">
+								<?php echo JText::_('SHOW_CART_SHIPPING'); ?>
+							</td>
+							<td>
+								<?php echo JHTML::_('hikaselect.booleanlist', $this->control.'[show_shipping]','',@$this->element->hikashop_params['show_shipping']);?>
+							</td>
+						</tr>
 						<tr>
 							<td class="key">
 								<?php echo JText::_('EMPTY_CART_MESSAGE_OVERRIDE'); ?>
@@ -292,6 +306,15 @@ if(!HIKASHOP_BACK_RESPONSIVE) { ?>
 								<?php
 								if(!isset($this->element->hikashop_params['add_to_cart'])) $this->element->hikashop_params['add_to_cart'] = '-1';
 								echo JHTML::_('hikaselect.radiolist', $arr, $this->control.'[add_to_cart]' , '', 'value', 'text', @$this->element->hikashop_params['add_to_cart']); ?>
+							</td>
+						</tr>
+						<tr>
+							<td class="key"><?php echo JText::_('ADD_TO_CART_QUANTITY');?></td>
+							<td>
+								<?php
+								if(!isset($this->element->hikashop_params['show_quantity_field'])) $this->element->hikashop_params['show_quantity_field'] = '0';
+								echo JHTML::_('hikaselect.booleanlist',  $this->control.'[show_quantity_field]', 'class="inputbox"', @$this->element->hikashop_params['show_quantity_field'] );
+								?>
 							</td>
 						</tr>
 						<tr>

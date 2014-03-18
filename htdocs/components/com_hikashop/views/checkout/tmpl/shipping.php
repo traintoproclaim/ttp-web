@@ -84,10 +84,12 @@ if(!HIKASHOP_RESPONSIVE) { ?>
 		}
 
 		foreach($this->rates as $rate) {
+			if(is_int($rate->shipping_warehouse_id))
+				$rate->shipping_warehouse_id = ''.$rate->shipping_warehouse_id;
 			if(isset($rate->shipping_warehouse_id) && $rate->shipping_warehouse_id !== $shipping_group_key) {
 				$keys = array();
 				$continue = true;
-				$tmp = array();
+				$tmp = array('' => $rate->shipping_warehouse_id);
 				if(is_string($rate->shipping_warehouse_id) && preg_match_all('#([a-zA-Z])*([0-9]+)#iu', $rate->shipping_warehouse_id, $keys)) {
 					$tmp = array_combine($keys[1], $keys[2]);
 				}

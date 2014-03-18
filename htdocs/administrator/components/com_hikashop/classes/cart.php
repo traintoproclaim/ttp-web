@@ -613,8 +613,8 @@ class hikashopCartClass extends hikashopClass{
 			}
 		}
 
+		$database = JFactory::getDBO();
 		if(hikashop_level(1)) {
-			$database = JFactory::getDBO();
 
 			$productIds = array((int)$product->product_id);
 			if( $product->product_parent_id > 0 ) {
@@ -928,6 +928,17 @@ class hikashopCartClass extends hikashopClass{
 			$class->checkVariant($product,$parentProduct);
 			if($product->product_quantity==-1 && $parentProduct->product_quantity!=-1){
 				$product->product_quantity = $parentProduct->product_quantity;
+				$quantity_for_same_main_product =& $this->_getGlobalQuantityOfVariants($cartContent,$product,$cart_product_id_for_product);
+				if($quantity_for_same_main_product>$product->product_quantity){
+					$in_excess = $quantity_for_same_main_product-$product->product_quantity;
+					if($quantity>$in_excess){
+						$quantity=$product->wanted_quantity=$quantity-$in_excess;
+						$quantity_for_same_main_product=$quantity_for_same_main_product - $in_excess;
+					}else{
+						$quantity_for_same_main_product=$quantity_for_same_main_product - $quantity;
+						$quantity=$product->wanted_quantity=0;
+					}
+				}
 			}
 
 			if(!empty($parentProduct->product_min_per_order)){

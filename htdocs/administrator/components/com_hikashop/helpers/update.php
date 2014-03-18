@@ -62,6 +62,7 @@ class hikashopUpdateHelper{
 			,'mod_hikashop_filter' => array('HikaShop Filter Module',0,0)
 			,'mod_hikashop_wishlist' => array('HikaShop Wishlist Module',0,0)
 			,'plg_acymailing_hikashop' => array('AcyMailing : HikaShop integration',0,1,1)
+			,'plg_authentication_opencart' => array('Hikashop OpenCart authentication Plugin',0,0)
 			,'plg_content_hikashopsocial' => array('Hikashop Social Networks Plugin',0,0)
 			,'plg_editors-xtd_hikashopproduct' => array('Hikashop product tag insertion plugin',0,1)
 			,'plg_hikashop_acymailing' => array('HikaShop trigger for AcyMailing filters',0,1)

@@ -289,7 +289,7 @@ class hikashopCartHelper{
 			if(qty){
 				'.$popupJs.'
 			}
-			var url = "'.$baseUrl.'from=module&product_id="+id+"&cart_type="+cart_type+"&quantity="+qty+addStr+"'.$url_itemid.$addTo.'&return_url='.urlencode(base64_encode(urldecode($url))).'";
+			var url = "'.$baseUrl.'from=module&product_id="+id+"&cart_type="+cart_type+"&hikashop_ajax=1&quantity="+qty+addStr+"'.$url_itemid.$addTo.'&return_url='.urlencode(base64_encode(urldecode($url))).'";
 			var completeFct = function(result) {
 				var hikaModule = false;
 				var checkmodule = false;
@@ -371,7 +371,7 @@ class hikashopCartHelper{
 
 			varform.submit();
 		}else{
-			var url = "'.$baseUrl.'from=module&product_id="+id+"&cart_type="+cart_type+"&quantity="+qty+addStr+"'.$url_itemid.$addTo.'&return_url='.urlencode(base64_encode(urldecode($url))).'";
+			var url = "'.$baseUrl.'from=module&product_id="+id+"&cart_type="+cart_type+"&hikashop_ajax=1&quantity="+qty+addStr+"'.$url_itemid.$addTo.'&return_url='.urlencode(base64_encode(urldecode($url))).'";
 			var completeFct = function(result) {
 				var hikaModule = false;
 				var checkmodule = false;

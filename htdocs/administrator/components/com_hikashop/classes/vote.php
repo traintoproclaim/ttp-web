@@ -548,7 +548,8 @@ function trim(myString){
 }
 
 function hikashop_vote_useful(hikashop_vote_id,val){
-	var hikashop_vote_user_id = document.getElementById("hikashop_vote_user_id").value;
+	var hikashop_vote_user_id = "";
+	if(document.getElementById("hikashop_vote_user_id")) hikashop_vote_user_id = document.getElementById("hikashop_vote_user_id").value;
 	var hikashop_vote_note_comment 	= ' . $note_comment . ';
 	if((hikashop_vote_note_comment == 1 && hikashop_vote_user_id != "") || hikashop_vote_note_comment == 0){
 		data = "hikashop_vote_type=useful";

@@ -136,7 +136,7 @@ class hikashopOrderClass extends hikashopClass{
 				$order->order_payment_params = serialize($order->order_payment_params);
 			}
 			if($config->get('update_stock_after_confirm') && isset($order->order_status) && isset($order->old->order_status) && $order_type == 'sale'){
-				if($order->old->order_status == 'created' && in_array($order->order_status,array('confirmed','shipped'))){
+				if($order->old->order_status == 'created' && in_array($order->order_status,array('confirmed','shipped'))) {
 					$this->loadProducts($order);
 					if(!empty($order->products)){
 						$productClass = hikashop_get('class.order_product');
@@ -146,7 +146,7 @@ class hikashopOrderClass extends hikashopClass{
 							unset($product->change);
 						}
 					}
-				}elseif(in_array($order->old->order_status, array('shipped','confirmed')) && $order->order_status == 'created'){
+				} elseif(in_array($order->old->order_status, array('shipped','confirmed')) && $order->order_status == 'created') {
 					$this->loadProducts($order);
 					if(!empty($order->products)){
 						$productClass = hikashop_get('class.order_product');
@@ -165,8 +165,10 @@ class hikashopOrderClass extends hikashopClass{
 				$excludeFreeOrders = $config->get('invoice_exclude_free_orders', 0);
 				if(isset($order->order_full_price))
 					$total = $order->order_full_price;
-				else
+				elseif(isset($order->old->order_full_price))
 					$total = $order->old->order_full_price;
+				else
+					$total = 0; //new order for example
 				if(in_array($order->order_status, $valid_statuses) && ($total > 0 || !$excludeFreeOrders)) {
 					$query = 'SELECT MAX(a.order_invoice_id)+1 FROM '.hikashop_table('order').' AS a WHERE a.order_type = \'sale\'';
 					$resetFrequency = $config->get('invoice_reset_frequency', '');
@@ -318,7 +320,7 @@ class hikashopOrderClass extends hikashopClass{
 
 				if($new) {
 					$send_email = $this->sendEmailAfterOrderCreation;
-					$dispatcher->trigger( 'onAfterOrderCreate', array( & $order,&$send_email) );
+					$dispatcher->trigger('onAfterOrderCreate', array(&$order, &$send_email));
 
 					if($send_email) {
 						$this->loadOrderNotification($order,'order_creation_notification');
@@ -503,7 +505,7 @@ class hikashopOrderClass extends hikashopClass{
 						$db->setQuery('SELECT * FROM '.hikashop_table('order_product').' WHERE order_id = '.(int)$order_id);
 						$order_products = $db->loadObjectList('order_product_id');
 						foreach($data['order']['warehouses'] as $pid => $w) {
-							if(isset($order_products[$pid])) {
+							if(isset($order_products[$pid]) && isset($data['order']['shipping'][$w])) {
 								$p = $order_products[$pid];
 								list($shipping_method, $shipping_id) = explode('_', $data['order']['shipping'][$w], 2);
 								$p->order_product_shipping_id = $shipping_id . '@' . $w;
@@ -702,17 +704,23 @@ class hikashopOrderClass extends hikashopClass{
 		}
 		$order->order_full_price = $total - $order->order_discount_price + $order->order_shipping_price + $order->order_payment_price;
 
+		$config =& hikashop_config();
 		if(!isset($order->order_tax_info)) {
 			if(!empty($old->order_tax_info)) {
 				$order->order_tax_info = $old->order_tax_info;
+			}elseif($config->get('detailed_tax_display',1)){
+				$order->order_tax_info = array();
 			}
 		}
 
-		if(!empty($order->order_tax_info)) {
+		if(!empty($order->order_tax_info) || $config->get('detailed_tax_display',1)) {
 			if(is_string($order->order_tax_info))
 				$order->order_tax_info = unserialize($order->order_tax_info);
-			foreach($order->order_tax_info as $k => $tax) {
-				$order->order_tax_info[$k]->todo = true;
+
+			if(count($order->order_tax_info)){
+				foreach($order->order_tax_info as $k => $tax) {
+					$order->order_tax_info[$k]->todo = true;
+				}
 			}
 			if(!empty($taxes)) {
 				foreach($taxes as $namekey => $amount) {

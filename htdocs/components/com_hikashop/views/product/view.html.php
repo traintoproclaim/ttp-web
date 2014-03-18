@@ -234,6 +234,9 @@ window.addEvent(\'domready\', function() {
 		if($this->params->get('show_discount','3')=='3'){
 			$this->params->set('show_discount',@$defaultParams['show_discount']);
 		}
+		if($this->params->get('show_quantity_field','0')=='1'){
+			$this->params->set('show_quantity_field', 1);
+		}
 
 		if(!empty($this->module)){
 			$pageInfo->search = '';
@@ -510,8 +513,8 @@ window.addEvent(\'domready\', function() {
 				$categoryClass = hikashop_get('class.category');
 				$categoryClass->parentObject =& $this;
 				$categoryClass->type = $type;
-				$children = $categoryClass->getChildren($pageInfo->filter->cid,true,array(),'',0,0);
 
+				$children = $categoryClass->getChildren($pageInfo->filter->cid,true,array(),'',0,0);
 				$filter = $catName.' IN (';
 				foreach($children as $child){
 					$filter .= $child->category_id.',';
@@ -1202,6 +1205,12 @@ window.addEvent(\'domready\', function() {
 						$filters['category']=$filter.(int)$menuData->hikashop_params['selectparentlisting'].')';
 					}
 				}
+			}else{
+				$categoryClass = hikashop_get('class.category');
+				$category = $categoryClass->get($category_id,true);
+				if(!empty($category->category_type) && $category->category_type=='manufacturer'){
+					$filters['category'] = 'b.product_manufacturer_id = '.(int)$category_id;
+				}
 			}
 
 
@@ -1799,7 +1808,12 @@ window.addEvent(\'domready\', function() {
 				}
 			}
 		}
-		$total =& $full->total;
+		if($this->params->get('show_shipping')||$this->params->get('show_coupon')){
+			$total =& $full->full_total;
+		}else{
+			$total =& $full->total;
+		}
+		$this->assignRef('element',$full);
 		$this->assignRef('total',$total);
 		$this->assignRef('rows',$rows);
 		$this->assignRef('config',$config);
@@ -1829,6 +1843,7 @@ window.addEvent(\'domready\', function() {
 		$user = hikashop_loadUser(true);
 		$this->assignRef('element',$user);
 
+		$doc = JFactory::getDocument();
 		$app = JFactory::getApplication();
 		$product_id = (int)hikashop_getCID('product_id');
 		$config =& hikashop_config();
@@ -1877,6 +1892,37 @@ window.addEvent(\'domready\', function() {
 		}
 		$product_url = hikashop_completeLink('product&task=show&cid='.(int)$element->product_id.'&name='.$element->alias.$url_itemid);
 		$this->assignRef('product_url',$product_url);
+
+		$js = "
+function checkFields(form){
+	var varform = document[form];
+	var nameField = varform.elements['data[contact][name]'];
+	var emailField = varform.elements['data[contact][email]'];
+	var altbodyField = varform.elements['data[contact][altbody]'];
+
+	if(nameField.value == ''){
+		alert('".JText::_('SPECIFY_A_NAME')."');
+		return false;
+	}
+	if(emailField.value == ''){
+		alert('".JText::_('EMAIL_INVALID')."');
+		return false;
+	}else{
+		emailField.value = emailField.value.replace(/ /g,\"\");
+		var filter = /^([a-z0-9_'&\.\-\+])+\@(([a-z0-9\-])+\.)+([a-z0-9]{2,10})+$/i;
+		if(!emailField || !filter.test(emailField.value)){
+			alert('".JText::_('EMAIL_INVALID')."');
+			return false;
+		}
+	}
+	if(altbodyField.value == ''){
+		alert('".JText::_('PLEASE_FILL_ADDITIONAL_INFO')."');
+		return false;
+	}
+	window.hikashop.submitform('send_email', 'hikashop_contact_form');
+}
+				";
+		$doc->addScriptDeclaration($js);
 	}
 
 	function status(){

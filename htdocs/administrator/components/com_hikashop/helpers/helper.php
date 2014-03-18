@@ -856,7 +856,7 @@ function hikashop_footer(){
 		$link.='?partner_id='.$aff;
 	}
 	$text = '<!--  HikaShop Component powered by '.$link.' -->
-	<!-- version '.$config->get('level').' : '.$config->get('version').' [1402121831] -->';
+	<!-- version '.$config->get('level').' : '.$config->get('version').' [1403181658] -->';
 	if(!$config->get('show_footer',true)) return $text;
 	$text .= '<div class="hikashop_footer" style="text-align:center" align="center"><a href="'.$link.'" target="_blank" title="'.HIKASHOP_NAME.' : '.strip_tags($description).'">'.HIKASHOP_NAME.' ';
 	$app= JFactory::getApplication();
@@ -871,7 +871,7 @@ function hikashop_search($searchString,$object,$exclude=''){
 	if(empty($object) || is_numeric($object))
 		return $object;
 	if(is_string($object)){
-		return preg_replace('#('.str_replace('#','\#',$searchString).')#i','<span class="searchtext">$1</span>',$object);
+		return preg_replace('#('.str_replace(array('#','(',')','.','[',']','?','*'),array('\#','\(','\)','\.','\[','\]','\?','\*'),$searchString).')#i','<span class="searchtext">$1</span>',$object);
 	}
 	if(is_array($object)){
 		foreach($object as $key => $element){
@@ -2625,13 +2625,13 @@ if($app->isAdmin()){
 }
 $css = $configClass->get('css_'.$css_type,'default');
 if(!empty($css)){
-	$doc->addStyleSheet( HIKASHOP_CSS.$css_type.'_'.$css.'.css?v='.HIKASHOP_RESSOURCE_VERSION);
+	$doc->addStyleSheet( HIKASHOP_CSS.$css_type.'_'.$css.'.css?t='.@filemtime(HIKASHOP_MEDIA.'css'.DS.$css_type.'_'.$css.'.css'));
 }
 
 if(!$app->isAdmin()){
 	$style = $configClass->get('css_style','');
 	if(!empty($style)){
-		$doc->addStyleSheet( HIKASHOP_CSS.'style_'.$style.'.css?v='.HIKASHOP_RESSOURCE_VERSION);
+		$doc->addStyleSheet( HIKASHOP_CSS.'style_'.$style.'.css?t='.@filemtime(HIKASHOP_MEDIA.'css'.DS.'style_'.$style.'.css'));
 	}
 }
 

@@ -131,18 +131,22 @@ class hikashopOrder_productClass extends hikashopClass{
 				$this->database->query();
 			}
 		}
-		$query='INSERT IGNORE INTO '.hikashop_table('order_product').' ('.implode(',',$fields).') VALUES '.implode(',',$items);
+		$query = 'INSERT IGNORE INTO '.hikashop_table('order_product').' ('.implode(',',$fields).') VALUES '.implode(',',$items);
 		$this->database->setQuery($query);
 		$this->database->query();
 
 		$this->database->setQuery('SELECT * FROM '.hikashop_table('order_product').' WHERE order_id='.$order_id);
 		$newProducts = $this->database->loadObjectList('order_product_option_parent_id');
 		$mainProducts = array();
-		foreach($products as $product) {
+		foreach($products as &$product) {
 			if(!empty($product->cart_product_option_parent_id)) {
-				$mainProducts[$product->cart_product_option_parent_id][]=$product->cart_product_id;
+				$mainProducts[$product->cart_product_option_parent_id][] = $product->cart_product_id;
 			}
+			if(!empty($product->cart_product_id) && isset($newProducts[$product->cart_product_id]))
+				$product->order_product_id = (int)$newProducts[$product->cart_product_id]->order_product_id;
 		}
+		unset($product);
+
 		$keep = array();
 		if(!empty($mainProducts)) {
 			foreach($mainProducts as $k => $v) {
@@ -311,7 +315,7 @@ class hikashopOrder_productClass extends hikashopClass{
 
 		if(!empty($product->tax_namekey)){
 			$tax = new stdClass();
-			if(!empty($product->product_id)){
+			if(!empty($product->product_id) && !empty($old)){
 				if(is_string($old->order_product_tax_info))
 					$old->order_product_tax_info = unserialize($old->order_product_tax_info);
 				$tax = reset($old->order_product_tax_info);

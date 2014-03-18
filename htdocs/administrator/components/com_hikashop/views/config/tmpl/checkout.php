@@ -411,6 +411,14 @@ jQuery(document).ready(function($) { checkoutWorkflowHelper.init(); });
 								<?php 	echo JHTML::_('hikaselect.booleanlist', 'config[show_email_confirmation_field]','',$this->config->get('show_email_confirmation_field',0)); ?>
 							</td>
 						</tr>
+						<tr>
+							<td class="key">
+								<?php echo JText::_('ASK_ADDRESS_ON_REGISTRATION'); ?>
+							</td>
+							<td>
+								<?php 	echo JHTML::_('hikaselect.booleanlist', 'config[address_on_registration]','',$this->config->get('address_on_registration',1)); ?>
+							</td>
+						</tr>
 					</table>
 				</fieldset>
 				</div>

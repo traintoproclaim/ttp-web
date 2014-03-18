@@ -203,6 +203,8 @@ class plgSystemHikashopuser extends JPlugin{
 
 		$display = $this->params->get('fields_on_user_profile');
 
+		if(is_null($display)) $display = 1;
+
 		if(empty($display) || $display=='0') return;
 
 		$option = JRequest::getCmd('option');

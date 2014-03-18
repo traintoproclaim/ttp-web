@@ -407,9 +407,11 @@ class plgHikashopMassaction_order extends JPlugin
 	}
 
 	function onBeforeOrderUpdate(&$order,&$do){
-		foreach($order->old as $key => $value) {
-			if(!isset($order->$key))
-				$order->$key = $value;
+		if(!empty($order->old)){
+			foreach($order->old as $key => $value) {
+				if(!isset($order->$key))
+					$order->$key = $value;
+			}
 		}
 		$orders = array($order);
 		$this->massaction->trigger('onBeforeOrderUpdate',$orders);

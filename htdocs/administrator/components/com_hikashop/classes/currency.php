@@ -51,7 +51,7 @@ class hikashopCurrencyClass extends hikashopClass{
 		$this->taxRates=array();
 		$tax = (float)$this->getTax($zone_id,$tax_category_id);
 
-		if(empty($tax)) return $price;
+		if(empty($tax)) return $this->_round($price,$round);
 		$price=(float)$price;
 		$taxedPrice=$this->_round($price+$price*$tax,$round);
 
@@ -66,7 +66,7 @@ class hikashopCurrencyClass extends hikashopClass{
 	function getUntaxedPrice($price,$zone_id,$tax_category_id,$round=2){
 		$this->taxRates=array();
 		$tax = (float)$this->getTax($zone_id,$tax_category_id);
-		if(empty($tax)) return $price;
+		if(empty($tax)) return $this->_round($price,$round);
 		$price=(float)$price;
 		$untaxedPrice = $this->_round($price/(1.00000+$tax),$round);
 		if(!empty($this->taxRates)){

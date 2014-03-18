@@ -200,6 +200,111 @@ if(empty($this->rows)){
 						<hr />
 					</td>
 				</tr>
+				<?php if($this->params->get('show_coupon',0) && !empty($this->element->coupon)){ ?>
+				<tr>
+					<?php
+					switch($row_count){
+						case 0:
+						case 1: ?>
+							<td class="hikashop_cart_module_coupon_value">
+								<?php
+								if(!$this->params->get('price_with_tax')){
+									echo $this->currencyHelper->format(@$this->element->coupon->discount_value_without_tax*-1,@$this->element->coupon->discount_currency_id);
+								}else{
+									echo $this->currencyHelper->format(@$this->element->coupon->discount_value*-1,@$this->element->coupon->discount_currency_id);
+								}
+								?>
+							</td>
+							<?php
+							break;
+
+						default:
+							$colspan = $row_count-1;
+							if($this->params->get('show_cart_delete',1)){
+								$colspan=$colspan-1;
+							}
+							if($colspan){
+							?>
+							<td class="hikashop_cart_module_coupon_title" colspan="<?php echo $colspan; ?>">
+								<?php echo JText::_('HIKASHOP_COUPON'); ?>
+							</td>
+							<?php } ?>
+							<td class="hikashop_cart_module_coupon_value">
+								<?php
+								if(!$this->params->get('price_with_tax')){
+									echo $this->currencyHelper->format(@$this->element->coupon->discount_value_without_tax*-1,@$this->element->coupon->discount_currency_id);
+								}else{
+									echo $this->currencyHelper->format(@$this->element->coupon->discount_value*-1,@$this->element->coupon->discount_currency_id);
+								}
+								?>
+							</td>
+							<?php if($this->params->get('show_cart_delete',1)){ ?>
+								<td>
+								</td>
+							<?php }
+							break;
+					}?>
+				</tr>
+				<?php } ?>
+				<?php if($this->params->get('show_shipping',0) && !empty($this->element->shipping)){
+							$shipping_price = null;
+							foreach($this->element->shipping as $shipping) {
+								if(!isset($shipping->shipping_price) && isset($shipping->shipping_price_with_tax) ) {
+									$shipping->shipping_price = $shipping->shipping_price_with_tax;
+								}
+								if(isset($shipping->shipping_price)) {
+									if($shipping_price === null)
+										$shipping_price = 0.0;
+									if(!$this->params->get('price_with_tax') || !isset($shipping->shipping_price_with_tax)) {
+										$shipping_price += $shipping->shipping_price;
+									} else {
+										$shipping_price += $shipping->shipping_price_with_tax;
+									}
+								}
+							}
+							if($shipping_price !== null) {
+								$shipping_price = $this->currencyHelper->format($shipping_price, $this->total->prices[0]->price_currency_id);
+							}
+							if($shipping_price){
+							?>
+							<tr>
+								<?php
+								switch($row_count){
+									case 0:
+									case 1: ?>
+										<td class="hikashop_cart_module_shipping_value">
+											<?php
+											echo $shipping_price;
+											?>
+										</td>
+										<?php
+										break;
+
+									default:
+										$colspan = $row_count-1;
+										if($this->params->get('show_cart_delete',1)){
+											$colspan=$colspan-1;
+										}
+										if($colspan){
+										?>
+										<td class="hikashop_cart_module_shipping_title" colspan="<?php echo $colspan; ?>">
+											<?php echo JText::_('HIKASHOP_SHIPPING'); ?>
+										</td>
+										<?php } ?>
+										<td class="hikashop_cart_module_shipping_value">
+											<?php
+											echo $shipping_price;
+											?>
+										</td>
+										<?php if($this->params->get('show_cart_delete',1)){ ?>
+											<td>
+											</td>
+										<?php }
+										break;
+								}?>
+							</tr>
+				<?php 	}
+					} ?>
 				<tr>
 					<?php
 					switch($row_count){

@@ -39,7 +39,8 @@ class plgHikashoppaymentPaypalExpress extends hikashopPaymentPlugin
 	{
 		$notif = HIKASHOP_LIVE.'index.php?option=com_hikashop&ctrl=checkout&task=notify&amp;notif_payment='.$this->name.'&tmpl=component';
 		$this->pluginConfig['notification'][0] =  JText::sprintf('ALLOW_NOTIFICATIONS_FROM_X','Paypal');
-		$this->button = '<div id=paypal_express_button style="width:144px; height:46px; margin-top:15px;"><a href="'.$notif.'&setExpressCheckout=1"><img src="https://www.paypal.com/fr_XC/i/btn/btn_xpressCheckout.gif" align="left"></a></div>';
+		$lang = JFactory::getLanguage();
+		$this->button = '<div id=paypal_express_button style="width:144px; height:46px; margin-top:15px;"><a href="'.$notif.'&setExpressCheckout=1"><img src="https://fpdbs.paypal.com/dynamicimageweb?cmd=_dynamic-image&buttontype=ecshortcut&locale='.str_replace('-','_',$lang->get('tag')).'" align="left"></a></div>';
 		return parent::__construct($subject, $config);
 	}
 
@@ -587,7 +588,7 @@ class plgHikashoppaymentPaypalExpress extends hikashopPaymentPlugin
 
 	function loadOrderId($token)
 	{
-		$sql = 'SELECT history_order_id FROM `#__hikashop_history` hh INNER JOIN `#__hikashop_order` ho ON hh.history_order_id = ho.order_id WHERE history_data = \''.htmlspecialchars($token).'\';';
+		$sql = 'SELECT history_order_id FROM `#__hikashop_history` hh INNER JOIN `#__hikashop_order` ho ON hh.history_order_id = ho.order_id WHERE history_data = '.$db->Quote(htmlspecialchars($token)).';';
 		$db = JFactory::getDBO();
 		$db->setQuery($sql);
 		$db->query();

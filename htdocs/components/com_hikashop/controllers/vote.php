@@ -25,6 +25,11 @@ class VoteController extends hikashopController {
 	function save() {
 		$voteClass = hikashop_get('class.vote');
 
+		if(!count($_POST)){
+			$app = JFactory::getApplication();
+			$app->redirect(preg_replace('#ctrl=vote&task=save&[0-9a-z=]+#','',preg_replace('#/vote/save/[0-9a-z-]+#','',hikashop_currentURL())),'', 'message', true);
+		}
+
 		$element = new stdClass();
 		$element->hikashop_vote_type = JRequest::getVar('hikashop_vote_type', 0, 'default', 'string', 0);
 		$element->vote_ref_id 		 = JRequest::getVar('hikashop_vote_ref_id', 0, 'default', 'int');

@@ -57,8 +57,6 @@ if(!HIKASHOP_J30) {
 				'doTask' => $url // $this->_getCommand($url)
 			);
 
-			$layout = new JLayoutFile('joomla.toolbar.popup');
-
 			$id = 'modal-' . $name;
 
 			if(!empty($footer)) {
@@ -78,7 +76,7 @@ if(!HIKASHOP_J30) {
 			);
 
 			$html = array(
-				str_replace(array('<i class="icon-out-2">','<i class="icon-cog">'), '<i class="icon-'.$icon.'">', $layout->render($options) ),
+				'<button onclick="'.$url.'" class="btn btn-small modal" data-toggle="modal" data-target="#modal-'.$name.'"><i class="icon-'.$icon.'"></i>'.JText::_($text).'</button>',
 				'</div><div class="btn-group" style="width: 0; margin: 0">',
 				str_replace(
 					array(

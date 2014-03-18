@@ -717,6 +717,7 @@ window.addEvent('domready', function(){
 				$js.="
 	if(typeof document.id == 'function' ){
 		document.id('radio_".$method->payment_type.'_'.$method->payment_id."').addEvent('click', function(e){
+			if(this.defaultChecked) return;
 			if(hikashop_last_opened_slide) {
 				if(mySlide_".$method->payment_type.'_'.$method->payment_id." == hikashop_last_opened_slide)
 					return;

@@ -329,7 +329,7 @@ class plgHikashoppaymentbf_rbsbusinessgateway extends hikashopPaymentPlugin
 		}
 		$mail_status=$statuses[$order->order_status];
 		$email->subject = JText::sprintf('PAYMENT_NOTIFICATION_FOR_ORDER','Worldpay Business Gateway',$payment_status,$dbOrder->order_number);
-		$body = str_replace('<br/>',"\r\n",JText::sprintf('PAYMENT_NOTIFICATION_STATUS','Worldpay Business Gateway',$vars['payment_status'])).' '.JText::sprintf('ORDER_STATUS_CHANGED',$mail_status)."\r\n\r\n".$order_text;
+		$body = str_replace('<br/>',"\r\n",JText::sprintf('PAYMENT_NOTIFICATION_STATUS','Worldpay Business Gateway',$order_status)).' '.JText::sprintf('ORDER_STATUS_CHANGED',$mail_status)."\r\n\r\n".$order_text;
 		$email->body = $body;
 
 		$this->modifyOrder($order_id, $order_status, $history, $email);

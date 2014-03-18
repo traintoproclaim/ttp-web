@@ -722,7 +722,7 @@ SENDER_POSTCODE="Sender Zip"';
 		ini_set("soap.wsdl_cache_enabled","0");
 		if(!class_exists('SoapClient')){
 			$app = JFactory::getApplication();
-			$app->enqueueMessage('The FEDEW shipping plugin needs the SOAP library installed but it seems that it is not available on your server. Please contact your web hosting to set it up.','error');
+			$app->enqueueMessage('The FEDEX shipping plugin needs the SOAP library installed but it seems that it is not available on your server. Please contact your web hosting to set it up.','error');
 			return false;
 		}
 		$client = new SoapClient($path_to_wsdl, array('exceptions' => false));

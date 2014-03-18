@@ -26,7 +26,7 @@ class plgHikashoppaymentservired extends hikashopPaymentPlugin {
 		'pending_status' => array('PENDING_STATUS', 'orderstatus'),
 		'verified_status' => array('VERIFIED_STATUS', 'orderstatus')
 	);
-	var $accepted_currencies = array('EUR');
+	var $accepted_currencies = array('EUR','USD');
 	var $debugData = array();
 
 	function onAfterOrderConfirm(&$order,&$methods,$method_id){

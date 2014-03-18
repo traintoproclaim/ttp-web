@@ -108,7 +108,7 @@ window.localPage.switchAddr = function(el, type) {
 		if(target)
 			target.innerHTML = '';
 		var dest = d.getElementById('hikashop_checkout_' + type + '_address_zone'),
-			url = '<?php echo hikashop_completeLink('address&task=edit&cid=0&type={TYPE}&fid=hikashop_checkout_{TYPE}_address_zone', true, true); ?>'.replace(/\{TYPE\}/g, type);
+			url = '<?php echo hikashop_completeLink('address&task=edit&cid=0&address_type={TYPE}&fid=hikashop_checkout_{TYPE}_address_zone', true, true); ?>'.replace(/\{TYPE\}/g, type);
 		o.xRequest(url, {update:dest});
 		if(el === 0)
 			return false;
@@ -119,7 +119,7 @@ window.localPage.switchAddr = function(el, type) {
 <?php } else { ?>
 	if(!target)
 		return;
-	var url = '<?php echo hikashop_completeLink('address&task=show&cid={CID}&type={TYPE}&fid=hikashop_checkout_{TYPE}_address_zone', true, true); ?>'.replace(/\{CID\}/g, el.value).replace(/\{TYPE\}/g, type);
+	var url = '<?php echo hikashop_completeLink('address&task=show&cid={CID}&address_type={TYPE}&fid=hikashop_checkout_{TYPE}_address_zone', true, true); ?>'.replace(/\{CID\}/g, el.value).replace(/\{TYPE\}/g, type);
 	o.xRequest(url, {update:target});
 <?php } ?>
 }
@@ -136,6 +136,8 @@ window.Oby.registerAjax('hikashop_address_changed', function(params) {
 		el_show.style.display = 'none';
 		el_edit.style.display = '';
 		return;
+	}else if(params.type=='shipping' && (d.getElementById('hikashop_shipping_methods') || d.getElementById('hikashop_payment_methods') || d.getElementById('hikashop_checkout_cart') )){
+		d.forms['hikashop_checkout_form'].submit();
 	}
 	if(el_edit.children.length == 0)
 		return;

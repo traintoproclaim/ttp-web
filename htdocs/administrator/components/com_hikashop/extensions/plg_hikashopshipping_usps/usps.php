@@ -27,7 +27,6 @@ class plgHikashopshippingUSPS extends hikashopShippingPlugin
 			'EXPRESS' => 'Express Mail',
 			'EXPRESSINT' => 'Express Mail International (International)',
 			'EXPRESSINTBOX' => 'Express Mail International Flat Rate Boxes (International)',
-			'PARCEL' => 'Parcel Post',
 			'FIRST CLASS' => 'First Class Mail',
 			'FIRSTCLASSINT' => 'First Class Mail (International)',
 			'INTERNATIONAL' => 'Priority Mail International (International)',
@@ -49,7 +48,6 @@ class plgHikashopshippingUSPS extends hikashopShippingPlugin
 		'EXPRESS' => 7,
 		'EXPRESSINT' => 8,
 		'EXPRESSINTBOX' => 9,
-		'PARCEL' => 10,
 		'FIRST CLASS' => 11,
 		'FIRSTCLASSINT' => 12,
 		'INTERNATIONAL' => 13,
@@ -189,9 +187,6 @@ class plgHikashopshippingUSPS extends hikashopShippingPlugin
 					}
 					if(!empty($rate->shipping_params->MEDIA)){
 						$this->addRate($rates,'MEDIA',$parcel,$rate,$currency, false);
-					}
-					if(!empty($rate->shipping_params->PARCEL)){
-						$this->addRate($rates,'PARCEL',$parcel,$rate,$currency, false);
 					}
 					if(!empty($rate->shipping_params->EXPRESS)){
 						$this->addRate($rates,'EXPRESS',$parcel,$rate,$currency, false);
@@ -409,7 +404,6 @@ class plgHikashopshippingUSPS extends hikashopShippingPlugin
 		$element->shipping_images='usps';
 		$element->shipping_params->PRIORITY='Priority Mail';
 		$element->shipping_params->MEDIA='Media Mail';
-		$element->shipping_params->PARCEL='Parcel Post';
 		$element->shipping_params->EXPRESS='Express Mail';
 		$FIRSTCLASS = 'FIRST CLASS';
 		$element->shipping_params->$FIRSTCLASS='First Class Mail';
@@ -449,7 +443,6 @@ class plgHikashopshippingUSPS extends hikashopShippingPlugin
 			$element->shipping_params->PRIORITY=in_array('PRIORITY',$element->shipping_params->services);
 			$element->shipping_params->MEDIA=in_array('MEDIA',$element->shipping_params->services);
 			$element->shipping_params->EXPRESS=in_array('EXPRESS',$element->shipping_params->services);
-			$element->shipping_params->PARCEL=in_array('PARCEL',$element->shipping_params->services);
 			$FIRSTCLASS = 'FIRST CLASS';
 			$element->shipping_params->$FIRSTCLASS=in_array('FIRST CLASS',$element->shipping_params->services);
 			$element->shipping_params->INTERNATIONAL=in_array('INTERNATIONAL',$element->shipping_params->services);

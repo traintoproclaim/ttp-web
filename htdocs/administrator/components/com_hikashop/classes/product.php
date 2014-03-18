@@ -200,6 +200,14 @@ class hikashopProductClass extends hikashopClass{
 				return false;
 			}
 		}
+
+		$config =& hikashop_config();
+		if($config->get('alias_auto_fill',1) && empty($element->product_alias)){
+			$this->addAlias($element);
+			$element->product_alias = $element->alias;
+			unset($element->alias);
+		}
+
 		if($status){
 			$status = $this->save($element);
 		}else{
@@ -1122,7 +1130,7 @@ class hikashopProductClass extends hikashopClass{
 
 	function checkVariant(&$variant,&$element,$map=array(),$force=false){
 		if(!empty($variant->variant_checked)) return true;
-		$checkfields = array('product_name','product_description','prices','images','discount','product_url','product_weight','product_weight_unit','product_keywords','product_meta_description','product_dimension_unit','product_width','product_length','product_height','files','product_contact','product_max_per_order','product_min_per_order','product_sale_start','product_sale_end','product_manufacturer_id');
+		$checkfields = array('product_name','product_description','prices','images','discount','product_url','product_weight','product_weight_unit','product_keywords','product_meta_description','product_dimension_unit','product_width','product_length','product_height','files','product_contact','product_max_per_order','product_min_per_order','product_sale_start','product_sale_end','product_manufacturer_id','file_path','file_name','file_description');
 		$fieldsClass = hikashop_get('class.field');
 		$fields = $fieldsClass->getFields('frontcomp',$element,'product','checkout&task=state');
 		foreach($fields as $field){

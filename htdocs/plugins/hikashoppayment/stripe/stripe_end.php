@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 	Stripe.setPublishableKey("'.$this->payment_params->publishable_key.'");
 	var stripeResponseHandler = function(status, response)
 	{
-		var $form = $("#payment-form");
+		var $form = jQuery("#payment-form");
 		if (response.error)
 		{
 			alert(response.error.message);
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 		else
 		{
 			var token = response.id;
-			$form.append($("<input type=\'hidden\' name=\'stripeToken\' />").val(token));
+			$form.append(jQuery("<input type=\'hidden\' name=\'stripeToken\' />").val(token));
 			$form.get(0).submit();
 		}
 	};
@@ -46,7 +46,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 	$imagepath = HIKASHOP_IMAGES.'payment/stripe.png';
 	$doc->addScript('https://js.stripe.com/v2/');
-	$doc->addScript('https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
+	hikashop_loadJsLib('jquery');
 	$doc->addScriptDeclaration($js);
 ?>
 
@@ -77,5 +77,3 @@ defined('_JEXEC') or die('Restricted access');
 	</form>
 </div>
 </fieldset>
-
-

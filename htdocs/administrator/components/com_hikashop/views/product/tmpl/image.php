@@ -72,7 +72,13 @@ defined('_JEXEC') or die('Restricted access');
 										?>
 									</td>
 									<td class="hikashop_product_image_thumbnail">
-										<?php echo $this->image->display($row->file_path,true,"",'','', 100, 100); ?>
+										<?php
+										$image_options = array('default' => true,'forcesize'=>$this->config->get('image_force_size',true),'scale'=>$this->config->get('image_scale_mode','inside'));
+										$img = $this->image->getThumbnail(@$row->file_path, array('width' => 100, 'height' => 100), $image_options);
+										if($img->success) {
+											echo '<img class="hikashop_product_image" title="'.$this->escape(@$row->file_description).'" alt="'.$this->escape(@$row->file_name).'" src="'.$img->url.'"/>';
+										}
+										?>
 									</td>
 									<td>
 										<?php echo $row->file_name; ?>

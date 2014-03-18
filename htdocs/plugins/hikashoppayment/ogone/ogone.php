@@ -176,6 +176,10 @@ class plgHikashoppaymentOgone extends hikashopPaymentPlugin
 
 	 	if(!$waiting){
 	 		$order_status = $this->payment_params->verified_status;
+
+	 		if($dbOrder->order_status==$order_status){
+	 			return true;
+	 		}
 	 	}else{
 	 		$order_status = $this->payment_params->pending_status;
 	 	}

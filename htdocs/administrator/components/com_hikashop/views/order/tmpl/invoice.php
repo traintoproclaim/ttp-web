@@ -36,9 +36,9 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_('DATE').': '.hikashop_getDate($this->element->order_created,'%d %B %Y ');?><br/>
 				<?php
 					if(!empty($this->element->order_invoice_number)) {
-						 echo JText::_('INVOICE').': '.$this->element->order_invoice_number;
+						echo JText::_('INVOICE').': '.$this->element->order_invoice_number;
 					} else {
-						 echo JText::_('INVOICE').': '.@$this->element->order_number;
+						echo JText::_('INVOICE').': '.@$this->element->order_number;
 					}
 				?>
 				</div>

@@ -175,12 +175,14 @@ class userViewUser extends HikaShopView {
 		$fieldsClass->skipAddressName=true;
 
 		$extraFields['user'] = $fieldsClass->getFields('frontcomp',$user,'user');
-		$extraFields['address'] = $fieldsClass->getFields('frontcomp',$address,'address');
-		$this->assignRef('extraFields',$extraFields);
-		$this->assignRef('user',$user);
-		$this->assignRef('address',$address);
 
 		$config =& hikashop_config();
+
+		$this->assignRef('extraFields',$extraFields);
+		$this->assignRef('user',$user);
+
+
+
 		$simplified_reg = $config->get('simplified_registration',1);
 		$this->assignRef('config',$config);
 		$this->assignRef('simplified_registration',$simplified_reg);
@@ -191,9 +193,18 @@ class userViewUser extends HikaShopView {
 		$null=array();
 		$fieldsClass->addJS($null,$null,$null);
 		$fieldsClass->jsToggle($this->extraFields['user'],$user,0);
-		$fieldsClass->jsToggle($this->extraFields['address'],$address,0);
 
-		$values = array('address'=>$address,'user'=>$user);
+		$values = array('user'=>$user);
+
+		if($config->get('address_on_registration',1)){
+			$extraFields['address'] = $fieldsClass->getFields('frontcomp',$address,'address');
+			$this->assignRef('address',$address);
+			$fieldsClass->jsToggle($this->extraFields['address'],$address,0);
+			$values['address']=$address;
+		}
+
+
+
 		$fieldsClass->checkFieldsForJS($this->extraFields,$this->requiredFields,$this->validMessages,$values);
 
 		$main = array('name','username', 'email','password','password2');

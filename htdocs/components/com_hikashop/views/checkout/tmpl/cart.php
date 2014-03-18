@@ -328,7 +328,7 @@ if($this->paymentType == 'no'){
 										if(!empty($Itemid)){
 											$url_itemid='&Itemid='.$Itemid;
 										} ?>
-									<?php if(@$defaultParams['link_to_product_page']){ ?><a href="<?php echo hikashop_completeLink('product&task=show&cid='.$row->product_id.'&name='.$row->alias.$url_itemid);?>" ><?php } ?>
+									<?php if(@$defaultParams['link_to_product_page']){ ?><a class="hikashop_no_print" href="<?php echo hikashop_completeLink('product&task=show&cid='.$row->product_id.'&name='.$row->alias.$url_itemid);?>" ><?php } ?>
 										<?php echo $row->product_name; ?>
 										<?php if ($this->config->get('show_code')) { ?>
 											<span class="hikashop_product_code_checkout"><?php echo $row->product_code; ?></span>
@@ -357,7 +357,7 @@ if($this->paymentType == 'no'){
 								if(hikashop_level(2) && !empty($this->extraFields['item'])){
 									foreach($this->extraFields['item'] as $field){
 										$namekey = $field->field_namekey;
-										if(empty($row->$namekey) && !strlen($row->$namekey)) continue;
+										if(empty($row->$namekey) || !strlen($row->$namekey)) continue;
 										echo '<p class="hikashop_cart_item_'.$namekey.'">'.$this->fieldsClass->getFieldName($field).': '.$this->fieldsClass->show($field,$row->$namekey).'</p>';
 									}
 								}
@@ -413,13 +413,13 @@ if($this->paymentType == 'no'){
 								if(empty($this->disable_modifications)){ ?>
 									<input id="hikashop_checkout_quantity_<?php echo $row->cart_product_id;?>" type="text" name="item[<?php echo $row->cart_product_id;?>]" class="hikashop_product_quantity_field" value="<?php echo $row->cart_product_quantity; ?>" onchange="var qty_field = document.getElementById('hikashop_checkout_quantity_<?php echo $row->cart_product_id;?>'); if (qty_field){<?php echo $input; ?>}; return true;" />
 									<div class="hikashop_cart_product_quantity_refresh">
-										<a href="#" onclick="var qty_field = document.getElementById('hikashop_checkout_quantity_<?php echo $row->cart_product_id;?>'); if (qty_field && qty_field.value != '<?php echo $row->cart_product_quantity; ?>'){<?php echo $input; ?> qty_field.form.submit(); } return false;" title="<?php echo JText::_('HIKA_REFRESH'); ?>">
+										<a class="hikashop_no_print" href="#" onclick="var qty_field = document.getElementById('hikashop_checkout_quantity_<?php echo $row->cart_product_id;?>'); if (qty_field && qty_field.value != '<?php echo $row->cart_product_quantity; ?>'){<?php echo $input; ?> qty_field.form.submit(); } return false;" title="<?php echo JText::_('HIKA_REFRESH'); ?>">
 											<img src="<?php echo HIKASHOP_IMAGES . 'refresh.png';?>" border="0" alt="<?php echo JText::_('HIKA_REFRESH'); ?>" />
 										</a>
 									</div>
 									<?php if($this->params->get('show_delete',1)){ ?>
 										<div class="hikashop_cart_product_quantity_delete">
-											<a href="<?php echo hikashop_completeLink('product&task=updatecart&product_id='.$row->product_id.'&quantity=0&return_url='.urlencode(base64_encode(urldecode($this->params->get('url'))))); ?>" onclick="var qty_field = document.getElementById('hikashop_checkout_quantity_<?php echo $row->cart_product_id;?>'); if(qty_field){qty_field.value=0; <?php echo $input; ?> qty_field.form.submit();} return false;" title="<?php echo JText::_('HIKA_DELETE'); ?>">
+											<a class="hikashop_no_print" href="<?php echo hikashop_completeLink('product&task=updatecart&product_id='.$row->product_id.'&quantity=0&return_url='.urlencode(base64_encode(urldecode($this->params->get('url'))))); ?>" onclick="var qty_field = document.getElementById('hikashop_checkout_quantity_<?php echo $row->cart_product_id;?>'); if(qty_field){qty_field.value=0; <?php echo $input; ?> qty_field.form.submit();} return false;" title="<?php echo JText::_('HIKA_DELETE'); ?>">
 												<img src="<?php echo HIKASHOP_IMAGES . 'delete2.png';?>" border="0" alt="<?php echo JText::_('HIKA_DELETE'); ?>" />
 											</a>
 										</div>

@@ -76,6 +76,14 @@ class hikashopCategoryClass extends hikashopClass{
 		$element->category_description = $category_description;
 		$class = hikashop_get('helper.translation');
 		$class->getTranslations($element);
+
+		$config =& hikashop_config();
+		if($config->get('alias_auto_fill',1) && empty($element->category_alias)){
+			$this->addAlias($element);
+			$element->category_alias = $element->alias;
+			unset($element->alias);
+		}
+
 		$status = $this->save($element);
 
 		if(!$status){

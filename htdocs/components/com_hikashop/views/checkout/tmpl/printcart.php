@@ -11,5 +11,5 @@ defined('_JEXEC') or die('Restricted access');
 $this->setLayout('cart');
 echo $this->loadTemplate();
 $js = "window.addEvent('domready', function() {window.focus();window.print();setTimeout(function(){window.top.hikashop.closeBox();}, 1000);});";
-$doc =& JFactory::getDocument();
+$doc = JFactory::getDocument();
 $doc->addScriptDeclaration("\n<!--\n".$js."\n//-->\n");

@@ -1574,4 +1574,3 @@ class hikashopImportredsHelper extends hikashopImportHelper
 	}
 
 }
-?>

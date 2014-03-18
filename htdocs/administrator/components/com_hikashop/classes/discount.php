@@ -213,20 +213,6 @@ class hikashopDiscountClass extends hikashopClass{
 								$error_message = JText::_('COUPON_NOT_FOR_PRODUCTS_IN_THOSE_CATEGORIES');
 							}
 						}
-						if(empty($error_message) && bccomp($coupon->discount_minimum_order,0,5)){
-
-							$currency->convertCoupon($coupon,$total->prices[0]->price_currency_id);
-							$config =& hikashop_config();
-							$discount_before_tax = $config->get('discount_before_tax');
-							$var = 'price_value_with_tax';
-							if(!$discount_before_tax){
-								$var = 'price_value';
-							}
-
-							if($coupon->discount_minimum_order>$total->prices[0]->$var){
-								$error_message = JText::sprintf('ORDER_NOT_EXPENSIVE_ENOUGH_FOR_COUPON',$currency->format($coupon->discount_minimum_order,$coupon->discount_currency_id));
-							}
-						}
 
 						$coupon->products = array();
 						if (!empty($coupon->discount_product_id)) {
@@ -262,6 +248,29 @@ class hikashopDiscountClass extends hikashopClass{
 								$coupon->products[] = $product;
 							}
 						}
+
+						if(empty($error_message) && bccomp($coupon->discount_minimum_order,0,5)){
+
+							$currency->convertCoupon($coupon,$total->prices[0]->price_currency_id);
+							$config =& hikashop_config();
+							$discount_before_tax = $config->get('discount_before_tax');
+							$var = 'price_value_with_tax';
+							if(!$discount_before_tax){
+								$var = 'price_value';
+							}
+
+							$total_amount = 0;
+							if(!empty($coupon->products)) {
+								foreach($coupon->products as $product) {
+									$total_amount += @$product->prices[0]->$var;
+								}
+							}
+
+							if($coupon->discount_minimum_order>$total_amount){
+								$error_message = JText::sprintf('ORDER_NOT_EXPENSIVE_ENOUGH_FOR_COUPON',$currency->format($coupon->discount_minimum_order,$coupon->discount_currency_id));
+							}
+						}
+
 
 						if(empty($error_message) && (int)$coupon->discount_minimum_products > 0) {
 							$qty = 0;
@@ -390,6 +399,12 @@ class hikashopDiscountClass extends hikashopClass{
 			if (bccomp($coupon->discount_flat_amount, 0, 5)) {
 				$coupon->discount_percent_amount = 0;
 				$coupon->discount_coupon_nodoubling = null;
+			}
+
+			$config =& hikashop_config();
+			if($config->get('round_calculations',0)){
+				$currencyHelper = hikashop_get('class.currency');
+				$coupon->discount_flat_amount = round($coupon->discount_flat_amount,$currencyHelper->getRounding($coupon->discount_currency_id));
 			}
 		}
 	}

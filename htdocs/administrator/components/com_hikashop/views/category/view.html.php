@@ -216,6 +216,7 @@ class CategoryViewCategory extends hikashopView
 			}';
 		}
 		$this->assignRef('control',$control);
+		$this->assignRef('id',$id);
 		if (!HIKASHOP_PHP5) {
 			$doc =& JFactory::getDocument();
 		}else{

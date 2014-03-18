@@ -25,8 +25,19 @@ class hikashopInstall{
 		$this->db = JFactory::getDBO();
 		$this->db->setQuery("SELECT COUNT(*) as `count` FROM `#__hikashop_config` WHERE `config_namekey` IN ('version','level') LIMIT 2");
 		$results = $this->db->loadObject();
-		if($results->count == 2)
+		if(!empty($results) && $results->count == 2)
 			$this->freshinstall = false;
+		if(empty($results)) {
+			$install_sql = file_get_content(rtrim(JPATH_ADMINISTRATOR,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_hikashop'.DIRECTORY_SEPARATOR.'tables.sql');
+			$queries = explode(';', $install_sql);
+			foreach($queries as $query) {
+				$query = trim($query);
+				if(!empty($query)) {
+					$this->db->setQuery($query);
+					$this->db->query();
+				}
+			}
+		}
 	}
 	function displayInfo(){
 		unset($_SESSION['hikashop']['li']);
@@ -719,6 +730,11 @@ CREATE TABLE IF NOT EXISTS `#__hikashop_plugin` (
 			$this->db->query();
 			$this->db->setQuery("ALTER TABLE `#__hikashop_product` ADD `product_warehouse_id` int(10) unsigned NOT NULL DEFAULT '0' ");
 			$this->db->query();
+
+			if(file_exists(HIKASHOP_MEDIA.'css'.DS.'frontend_old.css')){
+				$this->db->setQuery("UPDATE #__hikashop_config SET `config_value` = 'old',`config_default` = 'old' WHERE `config_namekey` = 'css_frontend' AND `config_value` = 'default' ");
+				$this->db->query();
+			}
 
 		}
 	}

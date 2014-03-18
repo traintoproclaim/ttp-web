@@ -17,13 +17,13 @@ class plgHikashoppaymentBanktransfer extends hikashopPaymentPlugin {
 		 'information' => array('BANK_ACCOUNT_INFORMATION', 'big-textarea')
 	);
 
-	function onAfterOrderConfirm(&$order,&$methods,$method_id){
-		$method =& $methods[$method_id];
-		$this->modifyOrder($order, $method->payment_params->order_status, @$method->payment_params->status_notif_email, false);
+	function onAfterOrderConfirm(&$order,&$methods,$method_id) {
+		parent::onAfterOrderConfirm($order,$methods,$method_id);
+		$this->modifyOrder($order->order_id, $this->payment_params->order_status, @$this->payment_params->status_notif_email, false);
 
 		$this->removeCart = true;
 
-		$this->information = $method->payment_params->information;
+		$this->information = $this->payment_params->information;
 		if(preg_match('#^[a-z0-9_]*$#i',$this->information)){
 			$this->information = JText::_($this->information);
 		}
@@ -31,7 +31,7 @@ class plgHikashoppaymentBanktransfer extends hikashopPaymentPlugin {
 		$this->amount = $currencyClass->format($order->order_full_price,$order->order_currency_id);
 		$this->order_number = $order->order_number;
 
-		$this->return_url =& $method->payment_params->return_url;
+		$this->return_url =& $this->payment_params->return_url;
 
 		return $this->showPage('end');
 

@@ -1047,6 +1047,10 @@ class OrderViewOrder extends hikashopView{
 	public function show_products($tpl = null) {
 		$task = JRequest::getCmd('task', '');
 		if($task == 'save') {
+			$html = '<html><body><script type="text/javascript">'."\r\n".
+				'window.parent.hikashop.submitFct();'."\r\n".
+				'</script></body></html>';
+			die($html);
 		}
 		$this->show($tpl, false);
 	}
@@ -1078,6 +1082,7 @@ class OrderViewOrder extends hikashopView{
 		}else{
 			$orderProduct = new stdClass();
 			$orderProduct->order_id = $order_id;
+			$orderProduct->order_product_quantity = 1;
 
 			$product_id = JRequest::getVar('cid', array(), '', 'array');
 
@@ -1111,7 +1116,7 @@ class OrderViewOrder extends hikashopView{
 					$orderProduct->order_product_name = strip_tags($product->product_name);
 
 					$orderProduct->order_product_code = $product->product_code;
-					$orderProduct->order_product_quantity = 1;
+
 
 					$currencyClass = hikashop_get('class.currency');
 					$main_currency = (int)$config->get('main_currency',1);

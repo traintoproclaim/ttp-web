@@ -14,6 +14,7 @@ $url_itemid = '';
 if(!empty($Itemid)){
 	$url_itemid='&Itemid='.$Itemid;
 }
+$config = hikashop_config();
 ?>
 <div id="hikashop_order_main">
 <fieldset>
@@ -386,7 +387,7 @@ if(!empty($Itemid)){
 							if(!empty($this->order->additional)) {
 								$exclude_additionnal = explode(',', $this->config->get('order_additional_hide', ''));
 								foreach($this->order->additional as $additional) {
-									if(in_array($additional->name, $exclude_additionnal)) continue;
+									if(in_array($additional->order_product_name, $exclude_additionnal)) continue;
 							?>
 									<tr>
 										<td colspan="<?php echo $colspan; ?>">

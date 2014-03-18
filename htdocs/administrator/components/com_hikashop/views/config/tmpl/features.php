@@ -398,6 +398,14 @@ if(hikashop_level(2)&&$affiliate_active) {
 											</tr>
 											<tr>
 												<td class="key">
+													<?php echo JText::_('ALIAS_AUTO_FILL'); ?>
+												</td>
+												<td>
+													<?php echo JHTML::_('hikaselect.booleanlist', "config[alias_auto_fill]",'',$this->config->get('alias_auto_fill',1)); ?>
+												</td>
+											</tr>
+											<tr>
+												<td class="key">
 													<?php echo JText::_('ACTIVATE_SMALLER_URL'); ?>
 												</td>
 												<td>

@@ -14,13 +14,13 @@ defined('_JEXEC') or die('Restricted access');
 	<table style="width:100%">
 		<tr>
 			<td style="vertical-align:top;border:1px solid #CCC;background-color: #F3F3F3" width="150px">
-				<?php echo hikashop_setExplorer('category&task=selectparentlisting&control='.$this->control,$this->pageInfo->filter->filter_id,true,$this->type); ?>
+				<?php echo hikashop_setExplorer('category&task=selectparentlisting&control='.$this->control.'&id='.$this->id,$this->pageInfo->filter->filter_id,true,$this->type); ?>
 			</td>
 			<td style="vertical-align:top;">
 <?php } else { ?>
 <div id="page-product" class="row-fluid">
 	<div class="span4">
-		<?php echo hikashop_setExplorer('category&task=selectparentlisting&control='.$this->control,$this->pageInfo->filter->filter_id,true,$this->type); ?>
+		<?php echo hikashop_setExplorer('category&task=selectparentlisting&control='.$this->control.'&id='.$this->id,$this->pageInfo->filter->filter_id,true,$this->type); ?>
 	</div>
 	<div class="span8">
 <?php } ?>
@@ -29,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
 				<table>
 					<tr>
 						<td width="100%">
-							<a href="<?php echo hikashop_completeLink('category&task=selectparentlisting&filter_id=0&control='.$this->control,true); ?>"><?php echo JText::_( 'ROOT' ); ?>/</a>
+							<a href="<?php echo hikashop_completeLink('category&task=selectparentlisting&filter_id=0&control='.$this->control.'&id='.$this->id,true); ?>"><?php echo JText::_( 'ROOT' ); ?>/</a>
 							<?php echo $this->breadCrumb.'<br/>'.JText::_( 'FILTER' ); ?>:
 							<input type="text" name="search" id="search" value="<?php echo $this->escape($this->pageInfo->search);?>" class="text_area" onchange="document.adminForm.submit();" />
 							<button class="btn" onclick="this.form.submit();"><?php echo JText::_( 'GO' ); ?></button>
@@ -89,7 +89,7 @@ defined('_JEXEC') or die('Restricted access');
 									</a>
 								</td>
 								<td>
-									<a href="<?php echo hikashop_completeLink('category&task=selectparentlisting&filter_id='.$row->category_id.'&control='.$this->control,true); ?>">
+									<a href="<?php echo hikashop_completeLink('category&task=selectparentlisting&filter_id='.$row->category_id.'&control='.$this->control.'&id='.$this->id,true); ?>">
 										<img src="<?php echo HIKASHOP_IMAGES; ?>go.png" alt="edit"/>
 									</a>
 								</td>
@@ -104,6 +104,7 @@ defined('_JEXEC') or die('Restricted access');
 					</tbody>
 				</table>
 				<input type="hidden" name="control" value="<?php echo $this->control; ?>" />
+				<input type="hidden" name="id" value="<?php echo $this->id; ?>" />
 				<input type="hidden" name="option" value="<?php echo HIKASHOP_COMPONENT; ?>" />
 				<input type="hidden" name="task" value="<?php echo JRequest::getCmd('task'); ?>" />
 				<input type="hidden" name="ctrl" value="<?php echo JRequest::getCmd('ctrl'); ?>" />

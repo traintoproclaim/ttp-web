@@ -86,6 +86,20 @@ class productController extends hikashopController{
 		$dispatcher = JDispatcher::getInstance();
 		$send = true;
 		$dispatcher->trigger( 'onBeforeSendContactRequest', array( & $element,& $send ) );
+
+		if($element->email && !JMailHelper::isEmailAddress($element->email)){
+			$app->enqueueMessage(JText::_('EMAIL_INVALID'),'error');
+			$send = false;
+		}
+		if(empty($element->name)){
+			$app->enqueueMessage(JText::_('SPECIFY_A_NAME'),'error');
+			$send = false;
+		}
+		if(empty($element->altbody)){
+			$app->enqueueMessage(JText::_('PLEASE_FILL_ADDITIONAL_INFO'),'error');
+			$send = false;
+		}
+
 		if($send){
 			$subject = JText::_('CONTACT_REQUEST');
 			if(!empty($element->product_id)){
@@ -135,6 +149,8 @@ class productController extends hikashopController{
 					$app->enqueueMessage(JText::sprintf('CLICK_HERE_TO_GO_BACK_TO_PRODUCT',hikashop_completeLink('product&task=show&cid='.$product->product_id.'&name='.$product->alias.$url_itemid)));
 				}
 			}
+		}else{
+			JRequest::setVar('formData',$element);
 		}
 		$url = JRequest::getVar('redirect_url');
 		if($send && !empty($url)) {
@@ -372,8 +388,16 @@ class productController extends hikashopController{
 					if($config->get('redirect_url_after_add_cart','stay_if_cart') != 'ask_user'){
 						$app->enqueueMessage(JText::_('LOGIN_REQUIRED_FOR_WISHLISTS'));
 					}
-					echo 'notLogged';
-					exit;
+					if($tmpl!='component'){
+						if(!empty($_SERVER['HTTP_REFERER'])){
+							if(strpos($_SERVER['HTTP_REFERER'],HIKASHOP_LIVE)===false && preg_match('#^https?://.*#',$_SERVER['HTTP_REFERER'])) return false;
+							$app->enqueueMessage(JText::_('LOGIN_REQUIRED_FOR_WISHLISTS'));
+							$app->redirect( str_replace('&popup=1','',$_SERVER['HTTP_REFERER']));
+						}
+					}else{
+						echo 'notLogged';
+						exit;
+					}
 				}else{
 					$redirectConfig = $config->get('redirect_url_after_add_cart','stay_if_cart');
 					$url='';
@@ -451,7 +475,7 @@ class productController extends hikashopController{
 				$stay = JRequest::getInt('stay',0);
 				if($stay == 0){
 					if(hikashop_disallowUrlRedirect($url)) return false;
-					if(JRequest::getVar('from_form',false)){
+					if(JRequest::getVar('from_form',true)){
 						JRequest::setVar('cart_type','wishlist');
 						$this->setRedirect($url);
 						return false;
@@ -527,7 +551,7 @@ class productController extends hikashopController{
 						$app->setUserState( HIKASHOP_COMPONENT.'.popup','1');
 					}
 					if(hikashop_disallowUrlRedirect($url)) return false;
-					if($config->get('ajax_add_to_cart','1') == '0'){
+					if(JRequest::getInt('hikashop_ajax', 0) == 0) { // $config->get('ajax_add_to_cart','1') == '0'){
 						$this->setRedirect($url);
 						return false;
 					}else{

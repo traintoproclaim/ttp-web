@@ -32,8 +32,14 @@ class plgSystemHikashopproducttag extends JPlugin {
 		$replacement='id="hikashop_product_name_main" itemprop="name"';
 		$body = preg_replace($pattern,$replacement,$body,1);
 		if($default_params['show_price'] == 1){
+			$currency_id = hikashop_getCurrency();
+			$null = null;
+			$currencyClass = hikashop_get('class.currency');
+			$currencies = $currencyClass->getCurrencies($currency_id,$null);
+			$data=$currencies[$currency_id];
+
 			$pattern='/<span id="hikashop_product_price_main" class="hikashop_product_price_main">/';
-			$replacement= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><span id="hikashop_product_price_main" class="hikashop_product_price_main">';
+			$replacement= '<div itemprop="offers" itemscope itemtype="http://schema.org/Offer"><span id="hikashop_product_price_main" class="hikashop_product_price_main"><meta itemprop="currency" content="'.$data->currency_code.'" />';
 			$body = preg_replace($pattern,$replacement,$body,1);
 			$pattern='/<(span|div) id="(hikashop_product_weight_main|hikashop_product_width_main|hikashop_product_length_main|hikashop_product_height_main|hikashop_product_characteristics|hikashop_product_options|hikashop_product_custom_item_info|hikashop_product_price_with_options_main|hikashop_product_quantity_main)"/';
 			$replacement='</div> <$1 id="$2"';

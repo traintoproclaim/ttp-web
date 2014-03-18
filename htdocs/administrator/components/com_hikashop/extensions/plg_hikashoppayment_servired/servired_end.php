@@ -23,7 +23,6 @@ function ShowForm ($amount,$currency,$producto,$id_pedido,$methods,$method_id) {
 	$terminal=$method->payment_params->terminalId;
 	$url_OK=HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=checkout&task=after_end&order_id=$id_pedido";
 	$url_KO=HIKASHOP_LIVE."index.php?option=com_hikashop&ctrl=order&task=cancel_order&order_id=$id_pedido";
-	$currency='978';
 	$transactionType='0';
 	$urlMerchant=HIKASHOP_LIVE.'index.php?option=com_hikashop&ctrl=checkout&task=notify&notif_payment=servired';
 	$order= '00'.$id_pedido;
@@ -76,6 +75,11 @@ $signature = strtoupper(sha1($message));
 	</span>
 	<br/>
 <?php
-	ShowForm($this->amount_total,'978','mi producto',$this->id_pedido,$this->methods,$this->method_id);
+	if($this->currency->currency_code=='USD'){
+		$currency = '840';
+	}else{
+		$currency = '978';
+	}
+	ShowForm($this->amount_total,$currency,'mi producto',$this->id_pedido,$this->methods,$this->method_id);
 ?>
 </div>

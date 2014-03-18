@@ -48,15 +48,17 @@ defined('_JEXEC') or die('Restricted access');
 			<table class="hikam_table table table-striped">
 				<thead>
 					<tr>
-						<th><?php echo JText::_('WAREHOUSE_ID'); ?></th>
-						<th><?php echo JText::_('SHIPPING_METHOD'); ?></th>
+						<th><?php echo JText::_('WAREHOUSE'); ?></th>
+						<th><?php echo JText::_('HIKASHOP_SHIPPING_METHOD'); ?></th>
 						<th><?php echo JText::_('SHIPPING_PRICE'); ?></th>
 						<th><?php echo JText::_('SHIPPING_TAX'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 <?php
-			$warehouses = array();
+			$warehouses = array(
+				JHTML::_('select.option', 0, JText::_('HIKA_NONE'))
+			);
 			$shipping_ids = explode(';', $this->order->order_shipping_id);
 			foreach($shipping_ids as $shipping_key) {
 				$shipping_warehouse = 0;
@@ -77,7 +79,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 					<tr>
 						<td><?php echo $shipping_warehouse; ?></td>
-						<td><?php echo $this->shippingPlugins->display('data[order][shipping]['.$shipping_warehouse.']',$shipping_method,$shipping_id); ?></td>
+						<td><?php echo $this->shippingPlugins->display('data[order][shipping]['.$shipping_warehouse.']',$shipping_method,$shipping_id, true, ' style="max-width:160px;"'); ?></td>
 						<td><input type="text" name="data[order][order_shipping_prices][<?php echo $shipping_warehouse; ?>]" value="<?php echo @$prices->price_with_tax; ?>" /></td>
 						<td><input type="text" name="data[order][order_shipping_taxs][<?php echo $shipping_warehouse; ?>]" value="<?php echo @$prices->tax; ?>" /></td>
 					</tr>
@@ -88,14 +90,12 @@ defined('_JEXEC') or die('Restricted access');
 			<table class="hika_table table table-striped">
 				<thead>
 					<tr>
-						<th><?php echo JText::_('HIKA_PRODUCT'); ?></th>
-						<th><?php echo JText::_('WAREHOUSE_ID'); ?></th>
+						<th><?php echo JText::_('PRODUCT'); ?></th>
+						<th><?php echo JText::_('WAREHOUSE'); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 <?php
-			if(empty($warehouses))
-				$warehouses[] = JHTML::_('select.option', 0, 0);
 			foreach($this->order->products as $k => $product) {
 				$map = 'data[order][warehouses]['.$product->order_product_id.']';
 				$value = 0;
@@ -118,7 +118,7 @@ defined('_JEXEC') or die('Restricted access');
 		<dt class="hikashop_order_additional_shipping"><label><?php echo JText::_('SHIPPING'); ?></label></dt>
 		<dd class="hikashop_order_additional_shipping"><span><?php echo $this->currencyHelper->format($this->order->order_shipping_price, $this->order->order_currency_id); ?> - <?php
 			if(empty($this->order->order_shipping_method))
-				echo '<em>'.JText::_('NONE').'</em>';
+				echo '<em>'.JText::_('HIKA_NONE').'</em>';
 			else
 				echo $this->order->order_shipping_method;
 			?></span></dd>
@@ -134,7 +134,7 @@ defined('_JEXEC') or die('Restricted access');
 		<dt class="hikashop_order_additional_payment_fee"><label><?php echo JText::_('HIKASHOP_PAYMENT'); ?></label></dt>
 		<dd class="hikashop_order_additional_payment_fee"><span><?php echo $this->currencyHelper->format($this->order->order_payment_price, $this->order->order_currency_id); ?> - <?php
 			if(empty($this->order->order_payment_method))
-				echo '<em>'.JText::_('NONE').'</em>';
+				echo '<em>'.JText::_('HIKA_NONE').'</em>';
 			else
 				echo $this->order->order_payment_method;
 			?></span></dd>

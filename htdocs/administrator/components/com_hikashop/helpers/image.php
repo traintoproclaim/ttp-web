@@ -387,6 +387,11 @@ window.addEvent(\'domready\', function() {
 			$this->thumbnail_y = $origin->height;
 		}
 
+		if(empty($size['x']))
+			$size['x'] = $scaling[0];
+		if(empty($size['y']))
+			$size['y'] = $scaling[1];
+
 		if($cachePath !== false && JFile::exists($cachePath . $destFolder . DS . $filename)) {
 			$ret->success = true;
 			$ret->path = $destFolder . DS . $filename;

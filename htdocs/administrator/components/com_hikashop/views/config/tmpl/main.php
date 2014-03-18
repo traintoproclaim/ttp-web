@@ -847,7 +847,7 @@ echo $this->leftmenu(
 								<?php echo JText::_('VERSION');?>
 							</td>
 							<td>
-								HikaShop <?php $this->config->get('level').' '.$this->config->get('version'); ?> [1402121831]
+								HikaShop <?php $this->config->get('level').' '.$this->config->get('version'); ?> [1403181658]
 							</td>
 						</tr>
 					</table>

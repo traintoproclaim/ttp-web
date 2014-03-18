@@ -406,7 +406,7 @@ class orderController extends hikashopController{
 	function download(){
 		$file_id = JRequest::getInt('file_id');
 		if(empty($file_id)){
-			$field_table = JRequest::getWord('field_table');
+			$field_table = JRequest::getString('field_table');
 			$field_namekey = base64_decode(urldecode(JRequest::getString('field_namekey')));
 			$name = base64_decode(urldecode(JRequest::getString('name')));
 			if(empty($field_table)||empty($field_namekey)||empty($name)){
@@ -567,6 +567,29 @@ class orderController extends hikashopController{
 			$newItem->$field_namekey = $ret->name;
 			$itemsData[] = $newItem;
 			$app->setUserState(HIKASHOP_COMPONENT.'.items_fields', $itemsData);
+		}
+
+		if(substr($field_table, 0, 4) == 'plg.') {
+			$externalValues = array();
+			JPluginHelper::importPlugin('hikashop');
+			$dispatcher = JDispatcher::getInstance();
+			$dispatcher->trigger('onTableFieldsLoad', array( &$externalValues ) );
+			$found = false;
+			foreach($externalValues as $external) {
+				if($external->value == $field_table) {
+					$found = true;
+					break;
+				}
+			}
+			if($found) {
+				$app = JFactory::getApplication();
+				$elemData = $app->getUserState(HIKASHOP_COMPONENT.'.plg_fields.' . substr($field_table, 4));
+				if(empty($elemData)) $elemData = array();
+				$newItem = new stdClass();
+				$newItem->$field_namekey = $ret->name;
+				$elemData[] = $newItem;
+				$app->setUserState(HIKASHOP_COMPONENT.'.plg_fields.' . substr($field_table, 4), $elemData);
+			}
 		}
 
 		if($field->field_type == 'ajaxfile')

@@ -171,7 +171,7 @@ if (!empty ($this->element->characteristics)) {
 									<form action="<?php echo hikashop_completeLink('product&task=updatecart'); ?>" method="post" name="hikashop_product_form_<?php echo $this->row->product_id.'_'.$this->params->get('main_div_name'); ?>" enctype="multipart/form-data">
 										<?php
 										$this->formName = 'hikashop_product_form_'.$this->row->product_id.'_'.$this->params->get('main_div_name');
-										$this->ajax = 'return hikashopModifyQuantity(\'' . $this->row->product_id . '\',field,1' . $this->formName . ',\'cart\');';
+										$this->ajax = 'return hikashopModifyQuantity(\'' . $this->row->product_id . '\',field,\'' . $this->formName . '\',\'cart\');';
 										$this->setLayout('quantity');
 										echo $this->loadTemplate();
 										if($this->config->get('redirect_url_after_add_cart','stay_if_cart')=='ask_user'){ ?>

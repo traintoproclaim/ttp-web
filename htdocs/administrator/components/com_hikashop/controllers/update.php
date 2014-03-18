@@ -110,8 +110,8 @@ class updateController extends HikashopBridgeController {
 		$taxName = JRequest::getVar('tax_name');
 		$taxRate = JRequest::getVar('tax_rate');
 		$addressCountry = JRequest::getVar('address_country');
-		$data = JRequest::getVar('data');
-		$addressState = (@$data['address']['address_state'])?($data['address']['address_state']):'';
+		$data = JRequest::getVar('data', array(), '', 'array');
+		$addressState = (!empty($data['address']['address_state'])) ? ($data['address']['address_state']) : '';
 		$shopAddress = JRequest::getVar('shop_address');
 		$paypalEmail = JRequest::getVar('paypal_email');
 		$productType = JRequest::getVar('product_type');
@@ -238,19 +238,22 @@ class updateController extends HikashopBridgeController {
 		}
 
 		if(isset($paypalEmail) && !empty($paypalEmail)){
-			$pluginData = array();
-			$pluginData['payment'] = array();
-			$pluginData['payment']['payment_name'] = 'PayPal';
-			$pluginData['payment']['payment_published'] = '1';
-			$pluginData['payment']['payment_images'] = 'MasterCard,VISA,Credit_card,PayPal';
-			$pluginData['payment']['payment_price'] = '';
-			$pluginData['payment']['payment_params'] = array();
-			$pluginData['payment']['payment_params']['url'] = 'https://www.paypal.com/cgi-bin/webscr';
-			$pluginData['payment']['payment_params']['email'] = $paypalEmail;
-			$pluginData['payment']['payment_zone_namekey'] = '';
-			$pluginData['payment']['payment_access'] = 'all';
-			$pluginData['payment']['payment_id'] = '0';
-			$pluginData['payment']['payment_type'] = 'paypal';
+			$pluginData = array(
+				'payment' => array(
+					'payment_name' => 'PayPal',
+					'payment_published' => '1',
+					'payment_images' => 'MasterCard,VISA,Credit_card,PayPal',
+					'payment_price' => '',
+					'payment_params' => array(
+						'url' => 'https://www.paypal.com/cgi-bin/webscr',
+						'email' => $paypalEmail,
+					),
+					'payment_zone_namekey' => '',
+					'payment_access' => 'all',
+					'payment_id' => '0',
+					'payment_type' => 'paypal',
+				),
+			);
 			JRequest::setVar('name','paypal');
 			JRequest::setVar('plugin_type','payment');
 			JRequest::setVar('data',$pluginData);

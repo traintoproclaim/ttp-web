@@ -24,7 +24,7 @@ class ProductViewProduct  extends HikaShopView
 		$menus	= $app->getMenu();
 		$menu	= $menus->getActive();
 		$config =& hikashop_config();
-		if(empty($menu) AND !empty($Itemid)){
+		if(empty($menu) && !empty($Itemid)){
 			$menus->setActive($Itemid);
 			$menu	= $menus->getItem($Itemid);
 		}

@@ -114,6 +114,8 @@ if(!$this->simplified_registration || $this->simplified_registration == 3){ ?>
 	</td>
 </tr>
 	<?php }
+
+	if($this->config->get('address_on_registration',1)){
 ?>
 <tr class="hikashop_registration_address_info_line">
 	<td colspan="2" height="40">
@@ -123,6 +125,7 @@ if(!$this->simplified_registration || $this->simplified_registration == 3){ ?>
 <?php
 		$this->type = 'address';
 		echo $this->loadTemplate();
+	}
 	?>
 <tr class="hikashop_registration_required_info_line">
 	<td colspan="2" height="40">

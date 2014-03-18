@@ -209,6 +209,36 @@ class ProductViewProduct extends hikashopView
 			'dashboard'
 		);
 
+		if(!empty($rows)){
+			$ids = array();
+			foreach($rows as $key => $row){
+				$ids[]=$row->product_id;
+			}
+			$queryImage = 'SELECT * FROM '.hikashop_table('file').' WHERE file_ref_id IN ('.implode(',',$ids).') AND file_type=\'product\' ORDER BY file_ref_id ASC, file_ordering ASC, file_id ASC';
+			$database->setQuery($queryImage);
+			$images = $database->loadObjectList();
+
+			foreach($rows as $k=>$row){
+				if(!empty($images)){
+					foreach($images as $image){
+						if($row->product_id==$image->file_ref_id){
+							if(!isset($row->file_ref_id)){
+								foreach(get_object_vars($image) as $key => $name){
+									$rows[$k]->$key = $name;
+								}
+							}
+							break;
+						}
+					}
+				}
+				if(!isset($rows[$k]->file_name)){
+					$rows[$k]->file_name = $row->product_name;
+				}
+			}
+		}
+
+		$image=hikashop_get('helper.image');
+		$this->assignRef('image',$image);
 		$toggleClass = hikashop_get('helper.toggle');
 		$this->assignRef('toggleClass',$toggleClass);
 		$childClass = hikashop_get('type.childdisplay');

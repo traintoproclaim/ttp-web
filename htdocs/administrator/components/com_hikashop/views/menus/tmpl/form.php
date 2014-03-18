@@ -269,6 +269,15 @@ defined('_JEXEC') or die('Restricted access');
 							</td>
 						</tr>
 						<tr>
+							<td class="key"><?php echo JText::_('ADD_TO_CART_QUANTITY');?></td>
+							<td>
+								<?php
+								if(!isset($this->element->hikashop_params['show_quantity_field'])) $this->element->hikashop_params['show_quantity_field'] = '0';
+								echo JHTML::_('hikaselect.booleanlist',  $this->control.'[show_quantity_field]', 'class="inputbox"', @$this->element->hikashop_params['show_quantity_field'] );
+								?>
+							</td>
+						</tr>
+						<tr>
 							<td class="key" valign="top">
 								<?php echo JText::_('ADD_TO_WISHLIST_BUTTON');?>
 							</td>

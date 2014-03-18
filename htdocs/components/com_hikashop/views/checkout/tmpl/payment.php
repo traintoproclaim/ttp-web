@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 ?><?php
-if(bccomp($this->orderInfos->full_total->prices[0]->price_value_with_tax,0,5)!=0){
+if(!empty($this->orderInfos->full_total->prices[0]) && bccomp($this->orderInfos->full_total->prices[0]->price_value_with_tax,0,5)!=0){
 	if(!empty($this->methods)){
 ?>
 <div id="hikashop_payment_methods" class="hikashop_payment_methods">

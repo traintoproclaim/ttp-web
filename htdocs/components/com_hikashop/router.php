@@ -53,7 +53,7 @@ function HikashopBuildRoute( &$query )
 			if((isset($query['ctrl']) && $query['ctrl']=='checkout' || isset($query['view']) && $query['view']=='checkout') && !empty($query['Itemid']) && (!isset($query['task']) || $query['task']=='step')){
 				$menuClass = hikashop_get('class.menus');
 				$menu = $menuClass->get($query['Itemid']);
-				if(!empty($menu) && $menu->link =='index.php?option=com_hikashop&view=checkout&layout=step'){
+				if(!empty($menu) && !empty($menu->link) && $menu->link =='index.php?option=com_hikashop&view=checkout&layout=step'){
 					if(isset($query['ctrl'])) unset($query['ctrl']);
 					if(isset($query['view'])) unset($query['view']);
 					if(!empty($checkoutSef)) $segments[] = $checkoutSef;
@@ -219,6 +219,10 @@ function HikashopParseRoute( $segments )
 				if($category_pathway!='category_pathway' && isset($vars[$category_pathway])){
 					$vars['category_pathway']=$vars[$category_pathway];
 				}
+			}else{
+				foreach($segments as $name){
+					hikashop_retrieve_url_id($vars,$name);
+				}
 			}
 
 		}
@@ -229,20 +233,47 @@ function HikashopParseRoute( $segments )
 function hikashop_retrieve_url_id(&$vars,$name){
 	$config =& hikashop_config();
 	if($config->get('sef_remove_id',0) && isset($vars['ctrl']) && isset($vars['task'])){
-		$db = JFactory::getDBO();
-		$name_regex = '^ *'.str_replace(array('-',':'),'.+',$name).' *$';
+
 		if($vars['ctrl']=='category' || ($vars['ctrl']=='product' && $vars['task']=='listing')){
-			$db->setQuery('SELECT category_id FROM '.hikashop_table('category').' WHERE category_alias REGEXP '.$db->Quote($name_regex).' OR category_name REGEXP '.$db->Quote($name_regex));
+			$type = 'category';
 		}elseif($vars['ctrl']=='product' && $vars['task']=='show'){
-			$db->setQuery('SELECT product_id FROM '.hikashop_table('product').' WHERE product_alias REGEXP '.$db->Quote($name_regex).' OR product_name REGEXP '.$db->Quote($name_regex));
+			$type = 'product';
 		}else{
 			return false;
 		}
-		$retrieved_id = $db->loadResult();
 
-		if($retrieved_id){
-			$vars['cid'] = $retrieved_id;
+		$db = JFactory::getDBO();
+		$config =& hikashop_config();
+
+		if($config->get('alias_auto_fill',1)){
+			$db->setQuery('SELECT '.$type.'_id FROM '.hikashop_table($type).' WHERE '.$type.'_alias = '.$db->Quote(str_replace(':','-',$name)));
+			$retrieved_id = $db->loadResult();
+			if($retrieved_id){
+				$vars['cid'] = $retrieved_id;
+				$vars['name'] = $name;
+				return true;
+			}
+		}
+
+		$name_regex = '^ *'.str_replace(array('-',':'),'.+',$name).' *$';
+		$db->setQuery('SELECT * FROM '.hikashop_table($type).' WHERE '.$type.'_alias REGEXP '.$db->Quote($name_regex).' OR '.$type.'_name REGEXP '.$db->Quote($name_regex));
+		$retrieved = $db->loadObject();
+
+		if($retrieved){
+			$type_id = $type.'_id';
+			$vars['cid'] = $retrieved->$type_id;
 			$vars['name'] = $name;
+			if($config->get('alias_auto_fill',1)){
+				if(empty($retrieved->product_alias)){
+					$class = hikashop_get('class.'.$type);
+					$class->addAlias($retrieved);
+					$element = new stdClass();
+					$type_alias = $type.'_alias';
+					$element->$type_id = $retrieved->$type_id;
+					$element->$type_alias = $retrieved->alias;
+					$class->save($element);
+				}
+			}
 			return true;
 		}
 	}

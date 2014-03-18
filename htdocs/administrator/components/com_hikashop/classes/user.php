@@ -48,7 +48,7 @@ class hikashopUserClass extends hikashopClass{
 
 			if(!empty($user->user_params)){
 				$user->user_params = unserialize($user->user_params);
-			}else{
+			}elseif(!empty($user)){
 				$user->user_params = new stdClass();
 			}
 			$data[$type.'_'.$id] = $user;
@@ -472,7 +472,13 @@ class hikashopUserClass extends hikashopClass{
 		$old = null;
 		$this->registerData = $fieldClass->getInput('register',$old,!@$checkout->cart_update);
 		$userData = $fieldClass->getInput('user',$old,!@$checkout->cart_update);
-		$addressData = $fieldClass->getInput('address',$old,!@$checkout->cart_update);
+
+		if($config->get('address_on_registration',1)){
+			$addressData = $fieldClass->getInput('address',$old,!@$checkout->cart_update);
+		}else{
+			$addressData = new stdClass();
+		}
+
 
 		if($this->registerData===false || $addressData===false || $userData===false){
 			return false;
@@ -549,7 +555,9 @@ class hikashopUserClass extends hikashopClass{
 				JError::raiseWarning('', JText::_( $user->getError()));
 				return false;
 			}
+			$this->get(false);
 			$newUser = $this->get($user->id,'cms');
+
 		}
 
 		if(!empty($newUser)){
@@ -594,14 +602,17 @@ class hikashopUserClass extends hikashopClass{
 		}else{
 			$this->user_id = $this->save($userData);
 		}
-		if(isset($addressData->address_id)){
-			unset($addressData->address_id);
-		}
-		$this->registerData->user_id = $this->user_id;
-		if(!empty($addressData)){
-			$addressData->address_user_id = $this->user_id;
-			$addressClass = hikashop_get('class.address');
-			$this->address_id = $addressClass->save($addressData);
+
+		if($config->get('address_on_registration',1)){
+			if(isset($addressData->address_id)){
+				unset($addressData->address_id);
+			}
+			$this->registerData->user_id = $this->user_id;
+			if(!empty($addressData)){
+				$addressData->address_user_id = $this->user_id;
+				$addressClass = hikashop_get('class.address');
+				$this->address_id = $addressClass->save($addressData);
+			}
 		}
 
 		if($simplified!=2){

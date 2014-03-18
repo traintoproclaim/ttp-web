@@ -247,7 +247,7 @@ function hikashopCheckField(elementToCheck,type,i,elementName,form){
 			return true;
 		},
 		ready: function(fct) {
-			var w = window, d = document;
+			var w = window, d = document, t = this;
 			if(d.readyState === "complete") {
 				fct();
 				return;
@@ -255,7 +255,7 @@ function hikashopCheckField(elementToCheck,type,i,elementName,form){
 			var done = false, top = true, root = d.documentElement,
 				init = function(e) {
 					if(e.type == 'readystatechange' && d.readyState != 'complete') return;
-					this.detachEvent((e.type == 'load' ? w : d), e.type, init);
+					t.removeEvent((e.type == 'load' ? w : d), e.type, init);
 					if(!done && (done = true))
 						fct();
 				},
@@ -267,9 +267,9 @@ function hikashopCheckField(elementToCheck,type,i,elementName,form){
 				try{ top = !w.frameElement; } catch(e){}
 				if(top) poll();
 			}
-			this.addEvent(d,'DOMContentLoaded',init);
-			this.addEvent(d,'readystatechange',init);
-			this.addEvent(w,'load',init);
+			t.addEvent(d,'DOMContentLoaded',init);
+			t.addEvent(d,'readystatechange',init);
+			t.addEvent(w,'load',init);
 		},
 		evalJSON : function(text, secure) {
 			if( typeof(text) != "string" || !text.length) return null;

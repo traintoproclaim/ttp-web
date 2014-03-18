@@ -309,6 +309,10 @@ body.com_hikashop #toolbar button {
 	display:block;
 }
 
+#hikashop_main_content #cpanel {
+	clear:both;
+}
+
 #hikashop_main_content #cpanel div.icon {
 	text-align: center;
 	margin-right: 15px;

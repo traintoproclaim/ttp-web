@@ -93,7 +93,7 @@ if ($comment_enabled == 1) {
 							?>
 						</td>
 						<td>
-							<div class="hika_comment_listing_notification" id='<?php echo $elt[$i]->vote_id; ?>' >
+							<div class="hika_comment_listing_notification" id="<?php echo $elt[$i]->vote_id; ?>" >
 								<?php
 								if($elt[$i]->total_vote_useful != 0){
 									if($elt[$i]->vote_useful == 0){
@@ -136,7 +136,7 @@ if ($comment_enabled == 1) {
 								<?php
 								}
 								?>
-								<td class="hika_comment_listing_useful" title="Useful" onclick='hikashop_vote_useful(<?php echo $elt[$i]->vote_id;?>,1);'"></td>
+								<td class="hika_comment_listing_useful" title="Useful" onclick="hikashop_vote_useful(<?php echo $elt[$i]->vote_id;?>,1);"></td>
 								<?php if($useful_style == "thumbs"){?>
 									<td class="hika_comment_listing_useful_p ui-corner-all">
 										<?php echo $hika_useless[$i];?>
@@ -144,7 +144,7 @@ if ($comment_enabled == 1) {
 								<?php
 								}
 								?>
-								<td class="hika_comment_listing_useless" title="Useless" onclick='hikashop_vote_useful(<?php echo $elt[$i]->vote_id;?>,2);'"></td>
+								<td class="hika_comment_listing_useless" title="Useless" onclick="hikashop_vote_useful(<?php echo $elt[$i]->vote_id;?>,2);"></td>
 						<?php
 							}
 							else{

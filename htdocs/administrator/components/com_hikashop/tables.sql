@@ -638,6 +638,7 @@ CREATE TABLE IF NOT EXISTS `#__hikashop_zone_link` (
 	`zone_child_namekey` varchar(255) NOT NULL,
 	PRIMARY KEY (`zone_parent_namekey`(150),`zone_child_namekey`(150))
 ) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+
 CREATE TABLE IF NOT EXISTS `#__hikashop_warehouse` (
 	`warehouse_id` INT(10) NOT NULL AUTO_INCREMENT,
 	`warehouse_name` VARCHAR(255) NOT NULL DEFAULT '',

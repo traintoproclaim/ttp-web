@@ -479,11 +479,11 @@ class plgHikashoppaymentbf_rbsglobalgateway extends JPlugin {
 				array('name' => 'pophelp', 'target' =>'payment-bf_rbsglobalgateway-form')
 			);
 
-			hikashop::setTitle('Worldpay Global Gateway','plugin','plugins&plugin_type=payment&task=edit&name='.$this->bf_rbsglobalgateway);
+			hikashop_setTitle('Worldpay Global Gateway','plugin','plugins&plugin_type=payment&task=edit&name='.$this->bf_rbsglobalgateway);
 			$app = JFactory::getApplication();
 			$app->setUserState( HIKASHOP_COMPONENT.'.payment_plugin_type', $this->bf_rbsglobalgateway);
-			$this->address = hikashop::get('type.address');
-			$this->category = hikashop::get('type.categorysub');
+			$this->address = hikashop_get('type.address');
+			$this->category = hikashop_get('type.categorysub');
 			$this->category->type = 'status';
 		}
 		function onPaymentConfigurationSave(&$element){

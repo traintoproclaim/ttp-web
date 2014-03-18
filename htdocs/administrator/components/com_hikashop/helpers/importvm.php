@@ -1260,7 +1260,7 @@ class hikashopImportvmHelper extends hikashopImportHelper
 			$sql1 = 'INSERT IGNORE INTO `#__hikashop_product` (`'.implode('`,`',array_keys($data)).'`) '.
 			'SELECT '.implode(',',$data).' FROM `'.$this->vmprefix.'virtuemart_products` AS vmp '.
 			"INNER JOIN `".$buffTable."` vmpeg ON vmp.virtuemart_product_id = vmpeg.virtuemart_product_id ".
-			"INNER JOIN `'.$this->vmprefix.'virtuemart_product_prices` vmpp ON vmpeg.virtuemart_product_id = vmpp.virtuemart_product_id ".
+			"INNER JOIN `".$this->vmprefix."virtuemart_product_prices` vmpp ON vmpeg.virtuemart_product_id = vmpp.virtuemart_product_id ".
 			'LEFT JOIN `#__hikashop_taxation` hkt ON hkt.tax_vm_id = vmpp.product_tax_id '.
 			'LEFT JOIN `#__hikashop_category` hkc ON hkc.category_namekey = hkt.category_namekey '.
 			'LEFT JOIN `#__hikashop_vm_prod` AS hkp ON vmp.virtuemart_product_id = hkp.vm_id '.
@@ -1293,8 +1293,8 @@ class hikashopImportvmHelper extends hikashopImportHelper
 			$sql4 = 'INSERT IGNORE INTO `#__hikashop_file` (`'.implode('`,`',array_keys($data)).'`) '.
 			'SELECT '.implode(',',$data).' FROM `'.$this->vmprefix.'virtuemart_products` AS vmp '.
 			"INNER JOIN `#__hikashop_vm_prod` AS hkvm ON vmp.virtuemart_product_id = hkvm.vm_id ".
-			"INNER JOIN `'.$this->vmprefix.'virtuemart_product_medias` vmpm ON hkvm.vm_id = vmpm.virtuemart_product_id ".
-			"INNER JOIN `'.$this->vmprefix.'virtuemart_medias` vmm ON vmpm.virtuemart_media_id = vmm.virtuemart_media_id ".
+			"INNER JOIN `".$this->vmprefix."virtuemart_product_medias` vmpm ON hkvm.vm_id = vmpm.virtuemart_product_id ".
+			"INNER JOIN `".$this->vmprefix."virtuemart_medias` vmm ON vmpm.virtuemart_media_id = vmm.virtuemart_media_id ".
 			'WHERE vmp.virtuemart_product_id > '.$this->options->last_vm_prod.' AND (vmm.file_title <>'." '');";
 
 
@@ -1571,7 +1571,7 @@ class hikashopImportvmHelper extends hikashopImportHelper
 			$data = array(
 				'order_number' => 'vmo.order_number',
 				'order_vm_id' => 'vmo.order_id',
-				'order_user_id' => "case when vmo.user_id < 0 OR hkusr.user_cms_id IS NULL then 0 else vmo.user_id end ",
+				'order_user_id' => 'case when vmo.user_id < 0 OR hkusr.user_cms_id IS NULL then 0 else hkusr.user_id end ',
 				'order_status' => 'hkc.category_name',
 				'order_discount_code' => 'vmo.coupon_code',
 				'order_discount_price' => 'vmo.coupon_discount',
@@ -1670,10 +1670,7 @@ class hikashopImportvmHelper extends hikashopImportHelper
 
 			$sql2_1 = 'INSERT IGNORE INTO `#__hikashop_address` (`'.implode('`,`',array_keys($data)).'`) '.
 				'SELECT '.implode(',',$data).' FROM `'.$this->vmprefix.'vm_order_user_info` AS vmui WHERE vmui.order_id > '.$this->options->last_vm_order.' ORDER BY vmui.order_info_id ASC';
-
-
 		}
-
 		elseif ($this->vm_version==2)
 		{
 			$data = array(
@@ -1738,13 +1735,10 @@ class hikashopImportvmHelper extends hikashopImportHelper
 				"INNER JOIN `".$this->vmprefix."virtuemart_countries` vmc ON vmui.virtuemart_country_id = vmc.virtuemart_country_id ".
 				'WHERE vmui.virtuemart_order_id > '.$this->options->last_vm_order.' ORDER BY vmui.virtuemart_order_userinfo_id ASC';
 		}
-
 		else
 		{
 			return false;
 		}
-
-
 
 		$sql2_2 = 'UPDATE `#__hikashop_address` AS a '.
 				'JOIN `#__hikashop_zone` AS hkz ON (a.address_country = hkz.zone_code_3 AND hkz.zone_type = "country") '.
@@ -2137,6 +2131,4 @@ class hikashopImportvmHelper extends hikashopImportHelper
 
 		return $ret;
 	}
-
 }
-?>

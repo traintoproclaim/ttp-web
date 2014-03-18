@@ -1695,15 +1695,19 @@ class hikashopAjaxfile extends hikashopItem {
 
 		if(!empty($value)) {
 			$path = JPath::clean(HIKASHOP_ROOT.DS.trim($config->get('uploadsecurefolder'), DS.' ').DS);
-			$v = md5_file($path . $value);
-			$params->file_size = filesize($path . $value);
-			$params->working_path = $path;
+			$v = '';
+			if(JFile::exists($path . $value)) {
+				$v = md5_file($path . $value);
+				$params->file_size = filesize($path . $value);
 
-			$n = $map.'[sec]';
+				$params->working_path = $path;
 
-			$params->extra_fields = array(
-				$n => $v
-			);
+				$n = $map.'[sec]';
+
+				$params->extra_fields = array(
+					$n => $v
+				);
+			}
 		}
 
 		$params->origin_url = hikashop_completeLink('order&task=download&field_table='.$field->field_table.'&field_namekey='.urlencode(base64_encode($field->field_namekey)).'&name='.urlencode(base64_encode($value)));
@@ -1867,7 +1871,7 @@ class hikashopWysiwyg extends hikashopTextarea {
 		$editorHelper->cols = empty($field->field_options['cols']) ? 50 : intval($field->field_options['cols']);
 		$editorHelper->rows = empty($field->field_options['rows']) ? 10 : intval($field->field_options['rows']);
 
-		return $editorHelper->display();
+		return $editorHelper->display() . '<div style="clear:both"></div>';
 
 		$js = '';
 		$html = '';

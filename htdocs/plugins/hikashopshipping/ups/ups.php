@@ -907,7 +907,7 @@ function checkAllBox(id, type){
 		curl_setopt($session,CURLOPT_POSTFIELDS,$xml);
 		$result=curl_exec ($session);
 		$error = curl_errno($session);
-		if( !$error ) {
+		if( !$error && !empty($result)) {
 			$xml = strstr($result, '<?');
 			$xml_parser = xml_parser_create();
 			$vals =  null;
@@ -965,7 +965,7 @@ function checkAllBox(id, type){
 					$shipment[$i]['err_message']=$params['RATINGSERVICESELECTIONRESPONSE']['RESPONSE']['ERROR']['ERRORDESCRIPTION'];
 					$shipment[$i]['err_code']=$params['RATINGSERVICESELECTIONRESPONSE']['RESPONSE']['ERROR']['ERRORCODE'];
 					if($shipment[$i]['err_code']<=111056 && $shipment[$i]['err_code']>=111050){
-						$messages['items_volume_over_limit'] = JText::_('ITEMS_VOLUME_TOO_BIG_FOR_SHIPPING_METHODS');
+						$app->enqueueMessage(JText::_('ITEMS_VOLUME_TOO_BIG_FOR_SHIPPING_METHODS'), 'error');
 					}else{
 						$app->enqueueMessage( 'Error while sending XML to UPS. Error code: '.$shipment[$i]['err_code'].'. Message: '.$shipment[$i]['err_message'].'', 'error');
 					}
@@ -977,8 +977,9 @@ function checkAllBox(id, type){
 			return $shipment;
 		} else {
 			$app = JFactory::getApplication();
-			$app->enqueueMessage('An error occurred. The connection to the UPS server could not be established: '.curl_error($session));
-			$do = false;
+			$error = curl_error($session);
+			if(!empty($error)) $error = ' : '.$error;
+			$app->enqueueMessage('An error occurred. The connection to the UPS server could not be established'.$error);
 		}
 		curl_close($session);
 	}

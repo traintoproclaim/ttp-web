@@ -78,6 +78,9 @@ defined('_JEXEC') or die('Restricted access');
 								<input type="checkbox" name="toggle" value="" onclick="hikashop.checkAll(this);" />
 							</th>
 							<th class="title">
+								<?php echo JText::_( 'HIKA_IMAGE' );?>
+							</th>
+							<th class="title">
 								<?php echo JHTML::_('grid.sort', JText::_('HIKA_NAME'), 'b.product_name', $this->pageInfo->filter->order->dir,$this->pageInfo->filter->order->value ); ?>
 							</th>
 							<th class="title">
@@ -136,6 +139,15 @@ defined('_JEXEC') or die('Restricted access');
 								</td>
 								<td align="center">
 									<?php echo JHTML::_('grid.id', $i, $row->product_id ); ?>
+								</td>
+								<td>
+									<?php
+									$image_options = array('default' => true,'forcesize'=>$this->config->get('image_force_size',true),'scale'=>$this->config->get('image_scale_mode','inside'));
+									$img = $this->image->getThumbnail(@$row->file_path, array('width' => 50, 'height' => 50), $image_options);
+									if($img->success) {
+										echo '<img class="hikashop_product_image" title="'.$this->escape(@$row->file_description).'" alt="'.$this->escape(@$row->file_name).'" src="'.$img->url.'"/>';
+									}
+									?>
 								</td>
 								<td>
 									<?php if($this->manage){ ?>

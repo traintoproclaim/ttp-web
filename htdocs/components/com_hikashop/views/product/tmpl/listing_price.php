@@ -133,7 +133,7 @@ if(isset($this->row->product_msrp) && @$this->row->product_msrp > 0.0 && JReques
 				echo JText::_('PRICE_BEFORE_TAX');
 			}
 			if($this->params->get('price_with_tax')==2||!$this->params->get('price_with_tax')){
-				echo $this->currencyHelper->format($price->price_value,$price->price_currency_id);
+				echo $this->currencyHelper->format(@$price->price_value,$price->price_currency_id);
 			}
 			if($this->params->get('price_with_tax')==2){
 				echo JText::_('PRICE_AFTER_TAX');
