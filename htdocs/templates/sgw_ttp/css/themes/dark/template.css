@@ -2184,6 +2184,9 @@ a.list-group-item.active:focus .list-group-item-text {
 .hikashop_products ul.thumbnails li {
   list-style: none;
 }
+.hikashop_products td {
+  border-top: none;
+}
 
 .t3-header {
   padding-top: 20px;
