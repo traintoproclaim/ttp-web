@@ -2181,6 +2181,9 @@ a.list-group-item.active:focus .list-group-item-text {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 }
+.hikashop_products ul.thumbnails li {
+  list-style: none;
+}
 
 .t3-header {
   padding-top: 20px;
