@@ -36,9 +36,9 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 </div>
 <?php if(HIKASHOP_RESPONSIVE){ ?>
-	<div class="row-fluid">
+	<div class="row">
 <?php } ?>
-<div id="hikashop_product_left_part" class="hikashop_product_left_part span6">
+<div id="hikashop_product_left_part" class="hikashop_product_left_part col-lg-6 col-md-6 col-sm-6">
 	<?php
 	if(!empty($this->element->extraData->leftBegin)) { echo implode("\r\n",$this->element->extraData->leftBegin); }
 
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 	?>
 </div>
 
-<div id="hikashop_product_right_part" class="hikashop_product_right_part span6">
+<div id="hikashop_product_right_part" class="hikashop_product_right_part col-lg-6 col-md-6 col-sm-6">
 	<?php
 	if(!empty($this->element->extraData->rightBegin))
 		echo implode("\r\n",$this->element->extraData->rightBegin);

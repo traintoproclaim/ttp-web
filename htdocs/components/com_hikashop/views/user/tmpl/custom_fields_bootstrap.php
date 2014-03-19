@@ -13,11 +13,11 @@ $type = $this->type;
 foreach($this->extraFields[$type] as $fieldName => $oneExtraField) {
 	$oneExtraField->registration_page = @$this->registration_page;
 ?>
-	<div class="control-group hikashop_registration_<?php echo $fieldName;?>_line" id="hikashop_<?php echo $type.'_'.$oneExtraField->field_namekey; ?>">
+	<div class="form-group hikashop_registration_<?php echo $fieldName;?>_line" id="hikashop_<?php echo $type.'_'.$oneExtraField->field_namekey; ?>">
 		<div class="control-label">
 			<?php echo $this->fieldsClass->getFieldName($oneExtraField);?>
 		</div>
-		<div class="controls">
+		<div>
 <?php
 	$onWhat='onchange'; if($oneExtraField->field_type=='radio') $onWhat='onclick';
 	echo $this->fieldsClass->display(

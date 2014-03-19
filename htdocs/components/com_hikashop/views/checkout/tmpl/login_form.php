@@ -64,7 +64,7 @@ if(!HIKASHOP_J16){
 </ul>
 <?php } else { ?>
 <div class="userdata form-inline">
-	<div id="form-login-username" class="control-group">
+	<div id="form-login-username" class="form-group">
 		<div class="controls">
 			<div class="input-prepend input-append">
 				<span class="add-on">
@@ -76,7 +76,7 @@ if(!HIKASHOP_J16){
 			</div>
 		</div>
 	</div>
-	<div id="form-login-password" class="control-group">
+	<div id="form-login-password" class="form-group">
 		<div class="controls">
 			<div class="input-prepend input-append">
 				<span class="add-on">
@@ -89,12 +89,12 @@ if(!HIKASHOP_J16){
 		</div>
 	</div>
 <?php if(JPluginHelper::isEnabled('system', 'remember')) { ?>
-	<div id="form-login-remember" class="control-group checkbox">
+	<div id="form-login-remember" class="form-group checkbox">
 		<label for="modlgn-remember" class="control-label"><?php echo JText::_('HIKA_REMEMBER_ME') ?></label>
 		<input id="modlgn-remember" type="checkbox" name="remember" value="yes"/>
 	</div>
 <?php } ?>
-	<div id="form-login-submit" class="control-group">
+	<div id="form-login-submit" class="form-group">
 		<div class="controls">
 			<?php echo $this->cart->displayButton(JText::_('HIKA_LOGIN'), 'login', @$this->params, '',' document.hikashop_checkout_form.submit(); return false;','', 0, 1, 'btn btn-primary'); ?>
 		</div>

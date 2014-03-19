@@ -23,8 +23,8 @@ if($this->identified){
 		$leftClass = 'hikashop_checkout_address_left_part';
 	}
 	if(HIKASHOP_RESPONSIVE) {
-		$mainClass .= ' row-fluid';
-		$leftClass .= ' span6';
+		$mainClass .= ' row';
+		$leftClass .= ' col-lg-6 col-md-6 col-sm-6';
 	}
 ?>
 <div id="<?php echo $mainId; ?>" class="<?php echo $mainClass; ?>">
@@ -44,7 +44,7 @@ if($this->identified){
 ?>
 		</fieldset>
 	</div>
-	<div id="hikashop_checkout_address_right_part" class="hikashop_checkout_address_right_part<?php if(HIKASHOP_RESPONSIVE){ echo ' span6';} ?>">
+	<div id="hikashop_checkout_address_right_part" class="hikashop_checkout_address_right_part<?php if(HIKASHOP_RESPONSIVE){ echo ' col-lg-6 col-md-6 col-sm-6';} ?>">
 		<fieldset class="hika_address_field" id="hikashop_checkout_shipping_address">
 			<legend><?php echo JText::_('HIKASHOP_SHIPPING_ADDRESS'); ?></legend>
 <?php

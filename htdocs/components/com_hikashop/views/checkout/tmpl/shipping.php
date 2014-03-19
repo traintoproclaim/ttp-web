@@ -67,7 +67,7 @@ if(!HIKASHOP_RESPONSIVE) { ?>
 		<table>
 <?php } else { ?>
 		</ul>
-<div class="controls">
+<div>
 	<div class="hika-radio">
 		<table class="hikashop_shipping_methods_table table table-striped table-hover">
 <?php }

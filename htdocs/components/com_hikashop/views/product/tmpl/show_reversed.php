@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 <?php if(!empty($this->element->extraData->topEnd)) { echo implode("\r\n",$this->element->extraData->topEnd); } ?>
 </div>
 <?php if(HIKASHOP_RESPONSIVE){ ?>
-	<div class="row-fluid">
+	<div class="row">
 <?php } ?>
 <div id="hikashop_product_left_part" class="hikashop_product_left_part" style="width: 220px;margin-right: 50px;">
 	<?php

@@ -43,18 +43,18 @@ if(!$this->identified){
 			}
 		}
 ?>
-	<div id="hikashop_checkout_login" class="hikashop_checkout_login row-fluid">
+	<div id="hikashop_checkout_login" class="hikashop_checkout_login row">
 	<?php
 		if($display_login) {
 	?>
-		<div id="hikashop_checkout_login_left_part" class="hikashop_checkout_login_left_part span4">
+		<div id="hikashop_checkout_login_left_part" class="hikashop_checkout_login_left_part col-lg-4 col-md-4 col-sm-4">
 			<fieldset class="input">
 				<h2><?php echo JText::_('HIKA_LOGIN');?></h2>
 				<?php echo $this->loadTemplate('form');	?>
 			</fieldset>
 		</div>
 	<?php } ?>
-		<div id="hikashop_checkout_login_right_part" class="hikashop_checkout_login_right_part span8">
+		<div id="hikashop_checkout_login_right_part" class="hikashop_checkout_login_right_part col-lg-8 col-md-8 col-sm-8">
 			<fieldset class="input">
 				<h2><?php
 					if($this->registration[2]) {
@@ -92,12 +92,12 @@ if(!$this->identified){
 
 ?>
 	<!-- THIS IS THE SWITCHER DISPLAY, RADIO BUTTON ON THE LEFT, FORMS ON THE RIGHT-->
-	<div id="hikashop_checkout_login" class="hikashop_checkout_login row-fluid">
+	<div id="hikashop_checkout_login" class="hikashop_checkout_login row">
 <?php
 		if($this->display_method == 1 && (($display_login && $registration_count > 0) || $registration_count > 1)) {
-			$span='span8';
+			$span='col-lg-8 col-md-8 col-sm-8';
 ?>
-		<div id="hikashop_checkout_login_left_part" class="hikashop_checkout_login_left_part span4">
+		<div id="hikashop_checkout_login_left_part" class="hikashop_checkout_login_left_part col-lg-4 col-md-4 col-sm-4">
 			<fieldset class="input">
 				<h2><?php echo JText::_('IDENTIFICATION');?></h2>
 <?php
