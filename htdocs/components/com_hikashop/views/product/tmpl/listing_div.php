@@ -120,8 +120,9 @@ if((!empty($this->rows) || !$this->module || JRequest::getVar('hikashop_front_en
 					<div class="hikashop_subcontainer <?php echo $this->borderClass; ?>">
 <?php
 				} else {
+					$colClasses = sprintf("col-lg-%d col-md-%d col-sm-%d", $span, $span, $span);
 ?>
-			<li class="span<?php echo $span; ?> hikashop_product hikashop_product_column_<?php echo $current_column; ?> hikashop_product_row_<?php echo $current_row; ?>">
+			<li class="<?php echo $colClasses; ?> hikashop_product hikashop_product_column_<?php echo $current_column; ?> hikashop_product_row_<?php echo $current_row; ?>">
 				<div class="hikashop_container">
 					<div class="hikashop_subcontainer <?php echo $this->borderClass; ?>">
 <?php
