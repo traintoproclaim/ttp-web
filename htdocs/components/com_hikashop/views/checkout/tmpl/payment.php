@@ -97,7 +97,7 @@ if(!empty($this->orderInfos->full_total->prices[0]) && bccomp($this->orderInfos-
 <?php
 		} else {
 ?>
-<div class="controls">
+<div>
 	<div class="hika-radio">
 		<table class="hikashop_payment_methods_table table table-striped table-hover">
 <?php

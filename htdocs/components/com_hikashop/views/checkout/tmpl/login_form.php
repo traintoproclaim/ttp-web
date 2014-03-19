@@ -65,7 +65,7 @@ if(!HIKASHOP_J16){
 <?php } else { ?>
 <div class="userdata form-inline">
 	<div id="form-login-username" class="form-group">
-		<div class="controls">
+		<div>
 			<div class="input-prepend input-append">
 				<span class="add-on">
 					<i class="icon-user tip" title="<?php echo JText::_('HIKA_USERNAME'); ?>"></i>
@@ -77,7 +77,7 @@ if(!HIKASHOP_J16){
 		</div>
 	</div>
 	<div id="form-login-password" class="form-group">
-		<div class="controls">
+		<div>
 			<div class="input-prepend input-append">
 				<span class="add-on">
 					<i class="icon-lock tip" title="<?php echo JText::_('HIKA_PASSWORD') ?>"></i>
@@ -95,7 +95,7 @@ if(!HIKASHOP_J16){
 	</div>
 <?php } ?>
 	<div id="form-login-submit" class="form-group">
-		<div class="controls">
+		<div>
 			<?php echo $this->cart->displayButton(JText::_('HIKA_LOGIN'), 'login', @$this->params, '',' document.hikashop_checkout_form.submit(); return false;','', 0, 1, 'btn btn-primary'); ?>
 		</div>
 	</div>

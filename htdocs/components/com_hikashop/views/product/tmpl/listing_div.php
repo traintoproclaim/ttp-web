@@ -107,9 +107,9 @@ if((!empty($this->rows) || !$this->module || JRequest::getVar('hikashop_front_en
 						break;
 				}
 				if($row_fluid == 12)
-					echo '<div class="row-fluid"><ul class="thumbnails">';
+					echo '<div class="row"><ul class="thumbnails">';
 				else
-					echo '<div class="row-fluid-'.$row_fluid.'"><ul class="thumbnails">';
+					echo '<div class="row-'.$row_fluid.'"><ul class="thumbnails">';
 			}
 
 			foreach($this->rows as $row){
